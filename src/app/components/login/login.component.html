@@ -5,3 +5,5 @@ Password: <br>
 <input type="password" placeholder="Password" [(ngModel)]="password"> 
 <br> <br>
 <button type="button" (click)="handleLogin()">Login</button>
+
+<div *ngIf="userService.isNewUser">New User</div>

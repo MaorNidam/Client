@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/models/IUser';
-import SuccessfullLoginServerResponce from 'src/app/models/SuccessfullLoginServerResponce';
-import { CategoriesService } from 'src/app/services/categories.service';
-import { ProductsService } from 'src/app/services/products.service';
+import { CartItemsService } from 'src/app/services/cart-items.service';
+import { CartsService } from 'src/app/services/carts.service';
+import { OrdersService } from 'src/app/services/orders.service';
 import { StateService } from 'src/app/services/state.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,13 +14,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router, private stateService: ProductsService) { }
+  constructor(public userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    this.stateService.editProduct({"id": 5, "name" : "Cheder", 
-    "price" : 5.6,
-    "imgUrl" : "../cola.jpg",
-    "categoryId" : 2});
   }
   
   userName: string = '';
