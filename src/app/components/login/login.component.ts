@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IUser } from 'src/app/models/IUser';
-import { CartItemsService } from 'src/app/services/cart-items.service';
-import { CartsService } from 'src/app/services/carts.service';
-import { OrdersService } from 'src/app/services/orders.service';
-import { StateService } from 'src/app/services/state.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
