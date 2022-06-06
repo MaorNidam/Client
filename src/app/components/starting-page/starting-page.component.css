@@ -1,0 +1,12 @@
+p-card {
+    display: inline-block;
+    height: 80vh;
+    width: 30%;
+    margin: 5px;
+}
+.card-container {
+    display: flex;
+    padding-top: 10px;
+    justify-content: space-evenly;
+    height: 90vh;
+}

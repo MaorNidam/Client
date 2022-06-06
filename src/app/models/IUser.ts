@@ -4,5 +4,4 @@ export interface IUser {
     lastName: string;
     city?: string;
     street?: string;
-    
 }

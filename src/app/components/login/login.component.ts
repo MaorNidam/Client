@@ -9,25 +9,37 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public userService: UserService, private router: Router) { }
+  constructor(public usersService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
-  
-  userName: string = '';
+
+  email: string = '';
+  isEmailError = true;
+  emailErrorMessage : string;
 
   password: string = '';
+  isPasswordError: boolean = false;
+  passwordErrorMessage : string;
 
   handleLogin = () => {
     let user = {
-      name: this.userName,
+      email: this.email,
       password: this.password
     }
-    //validate(user);
-    this.userService.login(user.name, user.password)
-      
-      // this.router.navigate(['vacations']);
-      
-    
+    try {
+      this.validateLogin(user);
+      this.usersService.login(user.email, user.password)
+    }
+    catch (e) {
+
+    }
+  }
+
+  validateLogin = (user: any) => {
+    if (user.email.trim() == "") {
+      this.isEmailError = true;
+      this.emailErrorMessage = "E-mail is required";
+    }
   }
 }

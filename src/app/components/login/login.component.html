@@ -1,9 +1,25 @@
-User: <br>
-<input type="text" placeholder="User name" [(ngModel)]="userName"> 
-<br> <br>
-Password: <br>
-<input type="password" placeholder="Password" [(ngModel)]="password"> 
-<br> <br>
-<button type="button" (click)="handleLogin()">Login</button>
+<div class="login" *ngIf="!usersService.currentUser">
+    <h3>Log In</h3>
+        <br>
+            <span class="p-float-label">
+                <input pInputText id="emailInput" type="text" 
+                [(ngModel)]="email"
+                required
+                email
+                #emailInputData="ngModel"
+                 />
+                <label for="emailInput">E-Mail</label>
+            </span>
+            <small *ngIf="emailInputData.errors?.['email'] && emailInputData.touched" id="email-help" class="p-error block">E-mail isn't valid.</small>
+            <small *ngIf="emailInputData.errors?.['required'] && emailInputData.touched" id="email-help" class="p-error block">E-mail is required.</small>
+        <br> <br>
+            <span class="p-float-label">
+                <!-- <input pInputText id="password" type="password" class="form-control" [(ngModel)]="password" /> -->
+                <p-password id="password"  [(ngModel)]="password" [toggleMask]="true" [feedback]="false" [(ngModel)]="password"></p-password>
+                <label for="password">Password</label>
+            </span>
+            <small *ngIf="isPasswordError" id="password-help" class="p-error block">{{passwordErrorMessage}}</small>
 
-<div *ngIf="userService.isNewUser">New User</div>
+        <br> <br>
+        <button pButton pRipple type="submit" label="Login" (click)="handleLogin()"></button>
+</div>
