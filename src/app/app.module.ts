@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationInterceptor } from './Interceptors/AuthenticationInterceptor';
 import { StartingPageComponent } from './components/starting-page/starting-page.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -40,6 +40,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     NgbModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     ButtonModule,
     MenubarModule,
     CardModule,

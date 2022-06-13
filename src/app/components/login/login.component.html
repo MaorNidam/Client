@@ -1,25 +1,27 @@
 <div class="login" *ngIf="!usersService.currentUser">
     <h3>Log In</h3>
-        <br>
-            <span class="p-float-label">
-                <input pInputText id="emailInput" type="text" 
-                [(ngModel)]="email"
-                required
-                email
-                #emailInputData="ngModel"
-                 />
-                <label for="emailInput">E-Mail</label>
-            </span>
-            <small *ngIf="emailInputData.errors?.['email'] && emailInputData.touched" id="email-help" class="p-error block">E-mail isn't valid.</small>
-            <small *ngIf="emailInputData.errors?.['required'] && emailInputData.touched" id="email-help" class="p-error block">E-mail is required.</small>
+    <br>
+    <!-- <form>
+        <span class="p-float-label">
+            <input pInputText id="emailInput" type="text" [(ngModel)]="email" required email
+                #emailInputData="ngModel" />
+            <label for="emailInput">E-Mail</label>
+        </span>
+        <small *ngIf="emailInputData.errors?.['email'] && emailInputData.touched" id="email-help"
+            class="p-error block">E-mail isn't valid.</small>
+        <small *ngIf="emailInputData.errors?.['required'] && emailInputData.touched" id="email-help"
+            class="p-error block">E-mail is required.</small>
         <br> <br>
-            <span class="p-float-label">
-                <!-- <input pInputText id="password" type="password" class="form-control" [(ngModel)]="password" /> -->
-                <p-password id="password"  [(ngModel)]="password" [toggleMask]="true" [feedback]="false" [(ngModel)]="password"></p-password>
-                <label for="password">Password</label>
-            </span>
-            <small *ngIf="isPasswordError" id="password-help" class="p-error block">{{passwordErrorMessage}}</small>
+        <span class="p-float-label">
+            <p-password id="password" required [(ngModel)]="password" [toggleMask]="true" [feedback]="false"
+                #passwordInput="ngModel"
+                styleClass="p-password p-component p-inputwrapper p-input-icon-right"></p-password>
+            <label for="password">Password</label>
+        </span>
+        <small *ngIf="passwordInput.errors?.['required'] && passwordInput.touched" id="password-help"
+            class="p-error block">Password is required.</small>
 
         <br> <br>
         <button pButton pRipple type="submit" label="Login" (click)="handleLogin()"></button>
+    </form> -->
 </div>

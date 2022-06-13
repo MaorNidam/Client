@@ -1,0 +1,12 @@
+small {
+    display: block;
+}
+
+.p-float-label {
+    margin-top: 10px;
+    width: 90%;
+}
+
+input {
+    width: 100%;
+}

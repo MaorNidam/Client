@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IRegister } from '../models/IRegister';
 import { IUser } from '../models/IUser';
 import { CartsService } from './carts.service';
@@ -50,5 +51,9 @@ export class UserService {
       console.log(e);
       alert("Something went wrong.");
     })
+  }
+
+  isExist = (userId: string, email: string): Observable<boolean> => {
+      return this.http.post<boolean>('http://localhost:3001/users/isExist', { userId, email });
   }
 }

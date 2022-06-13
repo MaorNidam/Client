@@ -1,15 +1,15 @@
 <div class="card-container">
-    <p-card class="account">
+    <p-card class="account card">
         <p-button (click)="handleStoreButton()" [label]="storeButtonLabel" *ngIf="usersService.currentUser"></p-button>
-        <router-outlet></router-outlet>
         <a routerLink="register">Register</a>
         <a routerLink="login">Log In</a>
+        <router-outlet></router-outlet>
     </p-card>
-    <p-card class="about">
+    <p-card class="about card">
         <p>Welcome to E-Store
         </p>
     </p-card>
-    <p-card class="general-info">
+    <p-card class="general-info card">
         Amount of Products: {{productsService.productsArray.length}}. <br>
         Amount of orders: {{ordersService.amountOfOrder}}. <br>
     </p-card>

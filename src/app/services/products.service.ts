@@ -21,7 +21,7 @@ export class ProductsService {
     })
   }
 
-  getAllProductsFromCategory = (categoryId : number) :void => {
+  getAllProductsFromCategory = (categoryId : number) : void => {
     this.http.get<IProduct[]>(this.baseUrl + categoryId).subscribe((productsResponse) => {
       this.productsArray = productsResponse;
     }, (e) => {
