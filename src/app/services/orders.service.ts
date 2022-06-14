@@ -34,7 +34,7 @@ export class OrdersService {
   }
 
   getOrdersAmount = () => {
-    this.http.get<number>(this.baseUrl+"/amount").subscribe((ordersResponse) => {
+    this.http.get<number>(this.baseUrl+"amount/").subscribe((ordersResponse) => {
       this.amountOfOrder = ordersResponse;
     }, (e) => {
       alert("Something went wrong.");

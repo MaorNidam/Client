@@ -20,6 +20,9 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { RegisterAccountComponent } from './components/register-account/register-account.component';
+import { RegisterPersonalInfoComponent } from './components/register-personal-info/register-personal-info.component';
+import {StepsModule} from 'primeng/steps';
 
 
 
@@ -31,7 +34,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     RegisterComponent,
     StoreComponent,
     OrderComponent,
-    HeaderComponent
+    HeaderComponent,
+    RegisterAccountComponent,
+    RegisterPersonalInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +52,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     InputTextModule,
     PasswordModule,
     BrowserAnimationsModule,
+    StepsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }],
   bootstrap: [AppComponent]

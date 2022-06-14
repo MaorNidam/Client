@@ -1,0 +1,65 @@
+<form [formGroup]="accountForm" (ngSubmit)="handleNext()">
+    <div>Enter 9 digits identification number:*</div>
+    <span class="p-float-label register-input">
+        <input name="id" pInputText id="idInput" type="text" formControlName="id" />
+        <label for="idInput">ID</label>
+    </span>
+    <small *ngIf="accountForm.controls['id'].hasError('required') && accountForm.controls['id'].touched" id="id-help"
+        class="p-error block">Id is required.</small>
+    <small *ngIf="accountForm.controls['id'].hasError('pattern') && accountForm.controls['id'].dirty" id="id-help"
+        class="p-error block">Invalid Id.</small>
+    <small *ngIf="accountForm.controls['id'].hasError('isExist') && accountForm.controls['id'].dirty" id="id-help"
+        class="p-error block">Id already registered.</small>
+    <small *ngIf="accountForm.controls['id'].hasError('idLengthValidator') && accountForm.controls['id'].dirty" id="id-help"
+        class="p-error block">Id must contain 9 digits.</small>
+    <br>
+
+    <div>Enter your e-mail address:*</div>
+    <span class="p-float-label">
+        <input name="email" pInputText id="emailInput" type="text" formControlName="email" />
+        <label for="emailInput">E-Mail</label>
+    </span>
+    <small *ngIf="accountForm.get('email').hasError('email') && accountForm.get('email').dirty" id="email-help"
+        class="p-error block">E-mail isn't valid.</small>
+    <small *ngIf="accountForm.get('email').hasError('required') && accountForm.get('email').touched" id="email-help"
+        class="p-error block">E-mail is required.</small>
+    <small *ngIf="accountForm.get('email').hasError('isExist') && accountForm.get('email').dirty" id="email-help"
+        class="p-error block">E-mail already registered.</small>
+    <br>
+
+    <div>Enter a password:*</div>
+    <span class="p-float-label">
+        <p-password name="password" id="password" [toggleMask]="true" formControlName="password"
+            styleClass="p-password p-component p-inputwrapper p-input-icon-right">
+            <ng-template pTemplate="header">
+                <h6>Pick a password</h6>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <p class="mt-2">Requirements</p>
+                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                    <li>Minimum 6 characters</li>
+                    <li>Maximum 12 characters</li>
+                </ul>
+            </ng-template>
+        </p-password>
+        <label for="password">Password</label>
+    </span>
+    <small
+        *ngIf="(accountForm.get('password').hasError('minlength') || accountForm.get('password').hasError('maxlength') ) && accountForm.get('password').dirty"
+        id="email-help" class="p-error block">Please follow the requirements.</small>
+    <br>
+
+    <div>Verify your password:*</div>
+    <span class="p-float-label">
+        <p-password name="verifyPassword" id="verifyPassword" [feedback]="false" [toggleMask]="true"
+            formControlName="verifyPassword" styleClass="p-password p-component p-inputwrapper p-input-icon-right">
+        </p-password>
+        <label for="verifyPassword">Verify password</label>
+    </span>
+    <small *ngIf="accountForm.hasError('passwordMatchValidator') && accountForm.get('verifyPassword').touched"
+        id="verify-password-help" class="p-error block">Password doesn't match.</small>
+    <br>
+
+    <p-button type="submit" [disabled]="accountForm.invalid">Next</p-button>
+    <small>*Required fields.</small>
+</form>

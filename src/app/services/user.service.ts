@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IRegister } from '../models/IRegister';
 import { IUser } from '../models/IUser';
@@ -19,6 +20,7 @@ export class UserService {
 
   public currentUser?: IUser;
   public isNewUser?: boolean = false;
+  public registerUser?: IRegister;
 
   login = (userName: string, password: string): void => {
     this.http.post<any>("http://localhost:3001/users/login", { email: userName, password }).subscribe((loginResponse) => {
