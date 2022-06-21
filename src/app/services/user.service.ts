@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IRegister } from '../models/IRegister';
 import { IUser } from '../models/IUser';
 import { CartsService } from './carts.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -19,22 +19,25 @@ export class UserService {
   }
 
   public currentUser?: IUser;
-  public isNewUser?: boolean = false;
+  public isNewUser: boolean = false;
   public registerUser?: IRegister;
 
   login = (userName: string, password: string): void => {
     this.http.post<any>("http://localhost:3001/users/login", { email: userName, password }).subscribe((loginResponse) => {
+      let decode = new JwtHelperService();
       this.currentUser = {
         token: loginResponse.token,
         firstName: loginResponse.firstName,
         lastName: loginResponse.lastName,
+        role: decode.decodeToken(loginResponse.token).role,
         city: loginResponse.city,
         street: loginResponse.street
       };
+      
       if (loginResponse.userCart) {
         this.cartService.cart = loginResponse.userCart;
       }
-      else {
+      else if(this.currentUser.role != "admin") {
         this.isNewUser = true;
         this.cartService.openCart();
       }
