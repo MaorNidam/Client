@@ -1,9 +1,11 @@
 <div class="card-container">
     <p-card class="account card">
         <p-button (click)="handleStoreButton()" [label]="storeButtonLabel" *ngIf="usersService.currentUser"></p-button>
-        <a routerLink="register">Register</a>
-        <a routerLink="login">Log In</a>
-        <router-outlet></router-outlet>
+        <div *ngIf="!usersService.currentUser">
+            <router-outlet></router-outlet>
+            <div *ngIf="!isLogin">Already a user? <a routerLink="login" (click)="isLogin = true;">Log In</a></div>
+            <div *ngIf="isLogin">Don't have an account yet? <a routerLink="register" (click)="isLogin = false;">Register</a></div>
+        </div>
     </p-card>
     <p-card class="about card">
         <p>Welcome to E-Store

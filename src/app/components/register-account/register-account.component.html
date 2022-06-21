@@ -54,7 +54,7 @@
         <p-password name="verifyPassword" id="verifyPassword" [feedback]="false" [toggleMask]="true"
             formControlName="verifyPassword" styleClass="p-password p-component p-inputwrapper p-input-icon-right">
         </p-password>
-        <label for="verifyPassword">Verify password</label>
+        <label for="verifyPassword">Verify Password</label>
     </span>
     <small *ngIf="accountForm.hasError('passwordMatchValidator') && accountForm.get('verifyPassword').touched"
         id="verify-password-help" class="p-error block">Password doesn't match.</small>

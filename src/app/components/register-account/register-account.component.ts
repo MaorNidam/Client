@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, map, catchError, of } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class RegisterAccountComponent implements OnInit {
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private usersService: UserService,
     private router: Router) { }
 
@@ -30,10 +30,9 @@ export class RegisterAccountComponent implements OnInit {
     });
   }
 
-  accountForm: FormGroup;
+  accountForm: UntypedFormGroup;
 
   handleNext = () => {
-    console.log(this.accountForm);
     if (this.accountForm.valid) {
       this.usersService.registerUser = {
         id: this.accountForm.get(['id']).value,
@@ -45,7 +44,7 @@ export class RegisterAccountComponent implements OnInit {
     }
   }
 
-  idLengthValidator = (control: FormControl): ValidationErrors | null => {
+  idLengthValidator = (control: UntypedFormControl): ValidationErrors | null => {
     let currentValue = control.value;
     if (currentValue.length == 9) {
       return null;
@@ -55,7 +54,7 @@ export class RegisterAccountComponent implements OnInit {
     }
   }
 
-  isExist = (control: FormControl): Observable<ValidationErrors | null> => {
+  isExist = (control: UntypedFormControl): Observable<ValidationErrors | null> => {
     let userId: string = "";
     let email: string = "";
     if (control.hasValidator(Validators.email)) {

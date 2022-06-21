@@ -1,27 +1,28 @@
 <div class="login" *ngIf="!usersService.currentUser">
     <h3>Log In</h3>
     <br>
-    <!-- <form>
+    <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
+        <div>Enter your e-mail address:*</div>
         <span class="p-float-label">
-            <input pInputText id="emailInput" type="text" [(ngModel)]="email" required email
-                #emailInputData="ngModel" />
+            <input name="email" pInputText id="emailInput" type="text" formControlName="email" />
             <label for="emailInput">E-Mail</label>
         </span>
-        <small *ngIf="emailInputData.errors?.['email'] && emailInputData.touched" id="email-help"
+        <small *ngIf="loginForm.get('email').hasError('email') && loginForm.get('email').dirty"
             class="p-error block">E-mail isn't valid.</small>
-        <small *ngIf="emailInputData.errors?.['required'] && emailInputData.touched" id="email-help"
+        <small *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched"
             class="p-error block">E-mail is required.</small>
         <br> <br>
+        <div>Enter your password:*</div>
         <span class="p-float-label">
-            <p-password id="password" required [(ngModel)]="password" [toggleMask]="true" [feedback]="false"
-                #passwordInput="ngModel"
+            <p-password id="password" [toggleMask]="true" [feedback]="false" formControlName="password"
                 styleClass="p-password p-component p-inputwrapper p-input-icon-right"></p-password>
             <label for="password">Password</label>
         </span>
-        <small *ngIf="passwordInput.errors?.['required'] && passwordInput.touched" id="password-help"
+        <small *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched"
             class="p-error block">Password is required.</small>
 
         <br> <br>
-        <button pButton pRipple type="submit" label="Login" (click)="handleLogin()"></button>
-    </form> -->
+        <button pButton pRipple type="submit" label="Login"></button>
+        <div>*Required fields.</div>
+    </form>
 </div>

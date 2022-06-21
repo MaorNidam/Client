@@ -17,6 +17,7 @@ export class StartingPageComponent implements OnInit {
     this.ordersService.getOrdersAmount();
   }
 
+  isLogin: boolean = true;
   storeButtonLabel: string = "Start Shopping";
 
   handleStoreButton = () => {

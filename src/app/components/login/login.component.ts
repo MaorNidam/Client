@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,23 +10,21 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public usersService: UserService, private router: Router) { }
+  constructor(public usersService: UserService, private router: Router, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ["", [Validators.email, Validators.required]],
+      password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
+    });
   }
 
-  email: string = '';
-  isEmailError = true;
-  emailErrorMessage : string;
-
-  password: string = '';
-  isPasswordError: boolean = false;
-  passwordErrorMessage : string;
+  loginForm : UntypedFormGroup;
 
   handleLogin = () => {
     let user = {
-      email: this.email,
-      password: this.password
+      email: this.loginForm.get(['email']).value,
+      password: this.loginForm.get(['password']).value
     }
     try {
       this.validateLogin(user);
@@ -37,9 +36,6 @@ export class LoginComponent implements OnInit {
   }
 
   validateLogin = (user: any) => {
-    if (user.email.trim() == "") {
-      this.isEmailError = true;
-      this.emailErrorMessage = "E-mail is required";
-    }
+
   }
 }

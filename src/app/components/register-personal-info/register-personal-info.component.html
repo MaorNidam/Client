@@ -4,31 +4,48 @@
         <input name="firstName" pInputText id="firstNameInput" type="text" formControlName="firstName" />
         <label for="firstNameInput">First Name</label>
     </span>
-    <small *ngIf="personalInfoForm.controls['firstName'].hasError('required') && personalInfoForm.controls['firstName'].touched" id="firstName-help"
+    <small
+        *ngIf="personalInfoForm.controls['firstName'].hasError('required') && personalInfoForm.controls['firstName'].touched"
         class="p-error block">First name is required.</small>
+    <small
+        *ngIf="personalInfoForm.controls['firstName'].hasError('pattern') && personalInfoForm.controls['firstName'].dirty"
+        class="p-error block">First name is invalid.</small>
+    <small
+        *ngIf="personalInfoForm.controls['firstName'].hasError('maxlength') && personalInfoForm.controls['firstName'].dirty"
+        class="p-error block">First name is too long.</small>
     <br>
 
     <div>Enter your last name:*</div>
     <span class="p-float-label">
         <input name="lastName" pInputText id="lastNameInput" type="text" formControlName="lastName" />
-        <label for="lastNameInput">lastName</label>
+        <label for="lastNameInput">Last Name</label>
     </span>
-    <small *ngIf="personalInfoForm.get('lastName').hasError('required') && personalInfoForm.get('lastName').touched" id="lastName-help"
+    <small *ngIf="personalInfoForm.get('lastName').hasError('required') && personalInfoForm.get('lastName').touched"
         class="p-error block">Last name is required.</small>
+    <small
+        *ngIf="personalInfoForm.controls['lastName'].hasError('pattern') && personalInfoForm.controls['lastName'].dirty"
+        class="p-error block">Last name is invalid.</small>
+    <small
+        *ngIf="personalInfoForm.controls['lastName'].hasError('maxlength') && personalInfoForm.controls['lastName'].dirty"
+        class="p-error block">Last name is too long.</small>
     <br>
 
     <div>Choose your city*: </div>
-    <p-dropdown [options]="cities" formControlName="selectedCity"></p-dropdown>
-
-
+    <p-dropdown [options]="cities" formControlName="city" placeholder="Select a City"></p-dropdown> <br>
+    <small *ngIf="personalInfoForm.get('city').hasError('required') && personalInfoForm.get('city').touched"
+        class="p-error block">City is required.</small>
+    <br>
 
     <div>Enter your street address:*</div>
     <span class="p-float-label">
         <input name="street" pInputText id="streetInput" type="text" formControlName="street" />
-        <label for="streetInput">Street</label>
+        <label for="streetInput">Street Address</label>
     </span>
-    <small *ngIf="personalInfoForm.get('street').hasError('required') && personalInfoForm.get('street').touched" id="street-help"
-        class="p-error block">E-mail is required.</small>
+    <small *ngIf="personalInfoForm.get('street').hasError('required') && personalInfoForm.get('street').touched"
+        class="p-error block">Street address is required.</small>
+    <small
+        *ngIf="personalInfoForm.controls['street'].hasError('maxlength') && personalInfoForm.controls['street'].dirty"
+        class="p-error block">Address is too long.</small>
     <br>
 
 
