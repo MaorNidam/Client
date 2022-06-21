@@ -1,1 +1,37 @@
-<p>register-personal-info works!</p>
+<form [formGroup]="personalInfoForm" (ngSubmit)="handleSubmit()">
+    <div>Enter your first name:*</div>
+    <span class="p-float-label register-input">
+        <input name="firstName" pInputText id="firstNameInput" type="text" formControlName="firstName" />
+        <label for="firstNameInput">First Name</label>
+    </span>
+    <small *ngIf="personalInfoForm.controls['firstName'].hasError('required') && personalInfoForm.controls['firstName'].touched" id="firstName-help"
+        class="p-error block">First name is required.</small>
+    <br>
+
+    <div>Enter your last name:*</div>
+    <span class="p-float-label">
+        <input name="lastName" pInputText id="lastNameInput" type="text" formControlName="lastName" />
+        <label for="lastNameInput">lastName</label>
+    </span>
+    <small *ngIf="personalInfoForm.get('lastName').hasError('required') && personalInfoForm.get('lastName').touched" id="lastName-help"
+        class="p-error block">Last name is required.</small>
+    <br>
+
+    <div>Choose your city*: </div>
+    <p-dropdown [options]="cities" formControlName="selectedCity"></p-dropdown>
+
+
+
+    <div>Enter your street address:*</div>
+    <span class="p-float-label">
+        <input name="street" pInputText id="streetInput" type="text" formControlName="street" />
+        <label for="streetInput">Street</label>
+    </span>
+    <small *ngIf="personalInfoForm.get('street').hasError('required') && personalInfoForm.get('street').touched" id="street-help"
+        class="p-error block">E-mail is required.</small>
+    <br>
+
+
+    <p-button type="submit" [disabled]="personalInfoForm.invalid">Submit</p-button>
+    <small>*Required fields.</small>
+</form>

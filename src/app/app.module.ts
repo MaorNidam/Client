@@ -23,6 +23,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RegisterAccountComponent } from './components/register-account/register-account.component';
 import { RegisterPersonalInfoComponent } from './components/register-personal-info/register-personal-info.component';
 import {StepsModule} from 'primeng/steps';
+import {DropdownModule} from 'primeng/dropdown';
 
 
 
@@ -52,7 +53,8 @@ import {StepsModule} from 'primeng/steps';
     InputTextModule,
     PasswordModule,
     BrowserAnimationsModule,
-    StepsModule
+    StepsModule,
+    DropdownModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }],
   bootstrap: [AppComponent]
