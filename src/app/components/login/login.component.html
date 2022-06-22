@@ -1,4 +1,4 @@
-<div class="login" *ngIf="!usersService.currentUser">
+<div class="login" *ngIf="!currentUser">
     <h3>Log In</h3>
     <br>
     <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
@@ -11,7 +11,8 @@
             class="p-error block">E-mail isn't valid.</small>
         <small *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched"
             class="p-error block">E-mail is required.</small>
-        <br> <br>
+        <br>
+        
         <div>Enter your password:*</div>
         <span class="p-float-label">
             <p-password id="password" [toggleMask]="true" [feedback]="false" formControlName="password"
@@ -20,8 +21,8 @@
         </span>
         <small *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched"
             class="p-error block">Password is required.</small>
+        <br>
 
-        <br> <br>
         <button pButton pRipple type="submit" label="Login"></button>
         <div>*Required fields.</div>
     </form>

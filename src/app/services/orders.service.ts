@@ -15,11 +15,12 @@ export class OrdersService {
 
   getLastOrderDate = () => {
     this.http.get<any>(this.baseUrl).subscribe((ordersResponse) => {
-      this.lastOrderDate = new Date(ordersResponse.orderDate);
+      if (ordersResponse.orderDate) {
+        this.lastOrderDate = new Date(ordersResponse.orderDate);
+      }
     }, (e) => {
       alert("Something went wrong.");
       console.log(e);
-
     })
   }
 

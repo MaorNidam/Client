@@ -1,10 +1,17 @@
 <div class="card-container">
     <p-card class="account card">
-        <p-button (click)="handleStoreButton()" [label]="storeButtonLabel" *ngIf="usersService.currentUser"></p-button>
-        <div *ngIf="!usersService.currentUser">
+        <p-button (click)="handleStartShoppingButton()" label="Start Shopping"
+            *ngIf="currentUser?.role == 'user' && (!cart || (cart && cartItemsService.cartItems.length == 0) )">
+        </p-button>
+        <p-button (click)="handleResumeShoppingButton()" label="Resume Shopping"
+            *ngIf="currentUser?.role == 'user' && cart && cartItemsService.cartItems.length > 0"></p-button>
+        <p-button (click)="handleStoreButton()" label="Go To Store" *ngIf="currentUser?.role == 'admin'">
+        </p-button>
+        <div *ngIf="!currentUser">
             <router-outlet></router-outlet>
             <div *ngIf="!isLogin">Already a user? <a routerLink="login" (click)="isLogin = true;">Log In</a></div>
-            <div *ngIf="isLogin">Don't have an account yet? <a routerLink="register" (click)="isLogin = false;">Register</a></div>
+            <div *ngIf="isLogin">Don't have an account yet? <a routerLink="register"
+                    (click)="isLogin = false;">Register</a></div>
         </div>
     </p-card>
     <p-card class="about card">
@@ -14,5 +21,15 @@
     <p-card class="general-info card">
         Amount of Products: {{productsService.productsArray.length}}. <br>
         Amount of orders: {{ordersService.amountOfOrder}}. <br>
+        <br>
+        <div *ngIf="currentUser && currentUser.role == 'user'">
+            <span *ngIf="!ordersService.lastOrderDate && cartItemsService.cartItems.length == 0">Enjoy your first
+                quality online shopping!</span>
+            <span *ngIf="cart?.isOpen && cartItemsService.cartItems.length > 0">You have an opened cart
+                from
+                {{cart.creationDate | date: 'fullDate'}}</span>
+            <span *ngIf="ordersService.lastOrderDate && cartItemsService.cartItems.length == 0">Your last order was at
+                {{ordersService.lastOrderDate | date: 'fullDate'}}</span>
+        </div>
     </p-card>
 </div>

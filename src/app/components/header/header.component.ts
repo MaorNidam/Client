@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { IUser } from 'src/app/models/IUser';
+import { CartItemsService } from 'src/app/services/cart-items.service';
+import { CartsService } from 'src/app/services/carts.service';
+import { OrdersService } from 'src/app/services/orders.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -8,13 +13,27 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public usersService: UserService) { }
+  constructor(
+    public usersService: UserService,
+    public cartsService: CartsService,
+    public cartItemsService: CartItemsService,
+    public ordersService: OrdersService, 
+    public formBuilder: FormBuilder
+    ) {
+      this.usersService.followCurrentUser().subscribe((newUser) => {
+        this.currentUser = newUser;
+      })
+     }
 
   ngOnInit(): void {
+    this.searchControl = this.formBuilder.control("") 
   }
 
+  currentUser: IUser;
+  searchControl: FormControl;
+
   handleLogout = () => {
-    this.usersService.currentUser = null;
+    this.usersService.setCurrentUser(null);
     sessionStorage.removeItem("userData");
   }
 }
