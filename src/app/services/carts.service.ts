@@ -55,4 +55,8 @@ export class CartsService {
   setCart = (newCart: ICart) => {
     this.cartSubject.next(newCart);
   }
+
+  getCart = () : ICart => {
+    return this.cartSubject.value;
+  }
 }

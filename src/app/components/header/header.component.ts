@@ -14,11 +14,11 @@ import { UserService } from 'src/app/services/user.service';
 export class HeaderComponent implements OnInit {
 
   constructor(
-    public usersService: UserService,
-    public cartsService: CartsService,
-    public cartItemsService: CartItemsService,
-    public ordersService: OrdersService, 
-    public formBuilder: FormBuilder
+    private usersService: UserService,
+    private cartsService: CartsService,
+    private cartItemsService: CartItemsService,
+    private ordersService: OrdersService, 
+    private formBuilder: FormBuilder
     ) {
       this.usersService.followCurrentUser().subscribe((newUser) => {
         this.currentUser = newUser;
@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   currentUser: IUser;
+
   searchControl: FormControl;
 
   handleLogout = () => {

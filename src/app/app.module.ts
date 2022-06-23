@@ -19,11 +19,13 @@ import { MenubarModule } from 'primeng/menubar';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterAccountComponent } from './components/register-account/register-account.component';
 import { RegisterPersonalInfoComponent } from './components/register-personal-info/register-personal-info.component';
-import {StepsModule} from 'primeng/steps';
-import {DropdownModule} from 'primeng/dropdown';
+import { StepsModule } from 'primeng/steps';
+import { DropdownModule } from 'primeng/dropdown';
+import { DataViewModule } from 'primeng/dataview';
+import { CartComponent } from './components/cart/cart.component';
 
 
 
@@ -37,7 +39,8 @@ import {DropdownModule} from 'primeng/dropdown';
     OrderComponent,
     HeaderComponent,
     RegisterAccountComponent,
-    RegisterPersonalInfoComponent
+    RegisterPersonalInfoComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,9 @@ import {DropdownModule} from 'primeng/dropdown';
     PasswordModule,
     BrowserAnimationsModule,
     StepsModule,
-    DropdownModule
+    DropdownModule,
+    DataViewModule,
+
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }],
   bootstrap: [AppComponent]

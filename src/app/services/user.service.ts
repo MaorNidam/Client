@@ -29,6 +29,7 @@ export class UserService {
   public registerUser?: IRegister;
   private decode = new JwtHelperService();
 
+
   login = (email: string, password: string): void => {
     this.http.post<any>("http://localhost:3001/users/login", { email, password }).subscribe((loginResponse) => {
       this.currentUser = {

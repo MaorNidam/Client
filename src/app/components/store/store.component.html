@@ -1,1 +1,7 @@
-<p>store works!</p>
+<div class="store-container">
+    <div class="cart card" *ngIf="isCartDisplay">
+        <app-cart></app-cart>
+    </div>
+    <button pButton pRipple type="button" icon="pi pi-shopping-cart" class="p-button-rounded" (click)="isCartDisplay = !isCartDisplay"></button>
+    <div class="products-container card"></div>
+</div>

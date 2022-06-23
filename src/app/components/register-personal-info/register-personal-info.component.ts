@@ -11,9 +11,9 @@ import { UserService } from 'src/app/services/user.service';
 export class RegisterPersonalInfoComponent implements OnInit {
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
-    private usersService: UserService,
-    private router: Router
+    public formBuilder: UntypedFormBuilder,
+    public usersService: UserService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {

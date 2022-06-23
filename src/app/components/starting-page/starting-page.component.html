@@ -1,11 +1,11 @@
 <div class="card-container">
-    <p-card class="account card">
+    <div class="account card home-card">
         <p-button (click)="handleStartShoppingButton()" label="Start Shopping"
             *ngIf="currentUser?.role == 'user' && (!cart || (cart && cartItemsService.cartItems.length == 0) )">
         </p-button>
-        <p-button (click)="handleResumeShoppingButton()" label="Resume Shopping"
+        <p-button (click)="router.navigate(['/store'])" label="Resume Shopping"
             *ngIf="currentUser?.role == 'user' && cart && cartItemsService.cartItems.length > 0"></p-button>
-        <p-button (click)="handleStoreButton()" label="Go To Store" *ngIf="currentUser?.role == 'admin'">
+        <p-button (click)="router.navigate(['/store'])" label="Go To Store" *ngIf="currentUser?.role == 'admin'">
         </p-button>
         <div *ngIf="!currentUser">
             <router-outlet></router-outlet>
@@ -13,12 +13,12 @@
             <div *ngIf="isLogin">Don't have an account yet? <a routerLink="register"
                     (click)="isLogin = false;">Register</a></div>
         </div>
-    </p-card>
-    <p-card class="about card">
+    </div>
+    <div class="about card home-card">
         <p>Welcome to E-Store
         </p>
-    </p-card>
-    <p-card class="general-info card">
+    </div>
+    <div class="general-info card home-card">
         Amount of Products: {{productsService.productsArray.length}}. <br>
         Amount of orders: {{ordersService.amountOfOrder}}. <br>
         <br>
@@ -31,5 +31,5 @@
             <span *ngIf="ordersService.lastOrderDate && cartItemsService.cartItems.length == 0">Your last order was at
                 {{ordersService.lastOrderDate | date: 'fullDate'}}</span>
         </div>
-    </p-card>
+    </div>
 </div>

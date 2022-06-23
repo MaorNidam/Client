@@ -12,9 +12,9 @@ import { UserService } from 'src/app/services/user.service';
 export class RegisterAccountComponent implements OnInit {
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
-    private usersService: UserService,
-    private router: Router) { }
+    public formBuilder: UntypedFormBuilder,
+    public usersService: UserService,
+    public router: Router) { }
 
   ngOnInit(): void {
     this.accountForm = this.formBuilder.group({

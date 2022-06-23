@@ -11,7 +11,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public usersService: UserService, private router: Router, private formBuilder: UntypedFormBuilder) { }
+  constructor(
+    public usersService: UserService,
+    public router: Router,
+    public formBuilder: UntypedFormBuilder
+  ) { }
 
   ngOnInit(): void {
     this.usersService.followCurrentUser().subscribe((newUser) => {
@@ -24,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   currentUser: IUser;
-  loginForm : UntypedFormGroup;
+  loginForm: UntypedFormGroup;
 
   handleLogin = () => {
     let user = {

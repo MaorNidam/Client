@@ -39,17 +39,10 @@ export class StartingPageComponent implements OnInit {
   cart: ICart;
   currentUser: IUser;
   isLogin: boolean = true;
-
-  handleStoreButton = () => {
-    this.router.navigate(['/store']);
-  }
   
   handleStartShoppingButton = () => {
     this.cartsService.openCart();
     this.router.navigate(['/store']);
   }
   
-  handleResumeShoppingButton = () => {
-    this.router.navigate(['/store']);
-  }
 }

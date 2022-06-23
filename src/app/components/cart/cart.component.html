@@ -1,0 +1,22 @@
+<p-dataView #dv [value]="cartItemsService.cartItems" filterBy="productName">
+    <ng-template pTemplate="header">
+        My Cart
+        <input type="search" pInputText placeholder="Search Item" (input)="dv.filter($any($event.target).value)">
+    </ng-template>
+    <ng-template let-ICartItem pTemplate="listItem">
+        <div class="col-12">
+            <div class="cart-item-list-item">
+                <img [src]="ICartItem.productImg"
+                    [alt]="ICartItem.productName" />
+                <div class="cart-item-list-detail">
+                    <div class="cart-item-name">{{ICartItem.productName}}</div>
+                    <div class="cart-item-description">Amount: {{ICartItem.quantity}}</div>
+                </div>
+                <div class="cart-item-list-action">
+                    <span class="cart-item-price">{{ICartItem.price * ICartItem.quantity | currency:"ILS":"symbol"}}</span>
+                    <p-button icon="pi pi-times" (click)="handleDelete(ICartItem.id)"></p-button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>

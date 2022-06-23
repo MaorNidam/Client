@@ -12,11 +12,11 @@ import { UserService } from './user.service';
 export class StateService {
 
   constructor(
-    public productsService: ProductsService,
-    public ordersService: OrdersService,
-    public usersService: UserService,
-    public cartsService: CartsService,
-    public cartItemsService: CartItemsService,
+    private productsService: ProductsService,
+    private ordersService: OrdersService,
+    private usersService: UserService,
+    private cartsService: CartsService,
+    private cartItemsService: CartItemsService,
   ) {
     this.usersService.followCurrentUser().subscribe((newUser) => {
       if (newUser) {
@@ -37,7 +37,7 @@ export class StateService {
         this.cartItemsService.cartItems = [];
       }
     })
-   }
+  }
 
 
 }
