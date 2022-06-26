@@ -1,3 +1,14 @@
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.p-dataview-content {
+    overflow: auto;
+    height: 100%;
+}
+
 .cart-item-list-item {
     display: flex;
     align-items: center;
@@ -34,4 +45,23 @@ img {
 .cart-item-list-action {
     display: flex;
     flex-direction: column;
+}
+
+.cart-button {
+    align-self: flex-end;
+    padding: 5px;
+    margin: 0;
+    font-size: 0.6rem;
+    width: 2rem;
+}
+
+.footer-buttons-set {
+    margin-top: auto;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-button {
+    width: 50%;
 }

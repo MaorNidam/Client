@@ -26,6 +26,10 @@ import { StepsModule } from 'primeng/steps';
 import { DropdownModule } from 'primeng/dropdown';
 import { DataViewModule } from 'primeng/dataview';
 import { CartComponent } from './components/cart/cart.component';
+import { ProductsComponent } from './components/products/products.component';
+import { TabViewModule } from 'primeng/tabview';
+import { DialogModule } from 'primeng/dialog';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 
 
@@ -40,7 +44,8 @@ import { CartComponent } from './components/cart/cart.component';
     HeaderComponent,
     RegisterAccountComponent,
     RegisterPersonalInfoComponent,
-    CartComponent
+    CartComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,9 @@ import { CartComponent } from './components/cart/cart.component';
     StepsModule,
     DropdownModule,
     DataViewModule,
-
+    TabViewModule,
+    DialogModule,
+    InputNumberModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }],
   bootstrap: [AppComponent]

@@ -25,8 +25,6 @@ export class StartingPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.productsService.getAllProducts();
-    this.ordersService.getOrdersAmount();
     this.usersService.followCurrentUser().subscribe((newUser) => {
       this.currentUser = newUser;
     })

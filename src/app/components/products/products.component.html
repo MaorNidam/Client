@@ -1,0 +1,31 @@
+<p-tabView (onChange)="handleCategoryChange($event)">
+    <p-tabPanel *ngFor="let category of categoriesService.categoriesArray;" [header]="category.name">
+    </p-tabPanel>
+</p-tabView>
+<div class="product-container">
+    <p-dataView [value]="productsService.productsArray" layout="grid" [paginator]="true" [rows]="9">
+        <ng-template let-IProduct pTemplate="gridItem">
+            <div class="p-col-12 p-md-4 inline">
+                <div class="product-grid-item product-card">
+                    <div class="product-grid-item-content">
+                        <img [src]="IProduct.imgUrl" [alt]="IProduct.name" />
+                        <div class="product-name">{{IProduct.name}}</div>
+                    </div>
+                    <div class="product-grid-item-bottom">
+                        <span class="product-price">{{IProduct.price | currency:"ILS":"symbol"}}</span>
+                        <button pButton pRipple icon="pi pi-shopping-cart" (click)="handleAddToCart(IProduct)"></button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+    <p-dialog [header]="productToAdd?.name" [(visible)]="isModalShown">
+        <div class="add-dialog-content">
+            <img [src]="productToAdd?.imgUrl" [alt]="productToAdd?.name" /> <br>
+            How many would you like?
+        </div>
+        <ng-template pTemplate="footer">
+            <p-inputNumber [(ngModel)]="amountToAdd" [showButtons]="true" mode="decimal" [min]=0></p-inputNumber>
+        </ng-template>
+    </p-dialog>
+</div>

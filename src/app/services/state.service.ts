@@ -18,6 +18,8 @@ export class StateService {
     private cartsService: CartsService,
     private cartItemsService: CartItemsService,
   ) {
+    this.productsService.getAllProducts();
+    this.ordersService.getOrdersAmount();
     this.usersService.followCurrentUser().subscribe((newUser) => {
       if (newUser) {
         this.cartsService.getLastCart();

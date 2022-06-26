@@ -10,9 +10,17 @@
 }
 
 .products-container {
-    display: inline-flex;
+    /* display: inline-flex; */
     min-width: 60%;
     width: 100%;
     height: 85vh;
 }
 
+app-cart {
+    height: 100%;
+    overflow-y: auto;
+}
+
+app-products {
+    overflow-y: auto;
+}
