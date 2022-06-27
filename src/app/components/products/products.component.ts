@@ -19,18 +19,27 @@ export class ProductsComponent implements OnInit {
   ) { }
 
   isModalShown = false;
-  productToAdd : IProduct;
-  amountToAdd = 0;
+  productToAdd: IProduct;
+
+
 
   ngOnInit(): void {
   }
 
   handleCategoryChange = (event: any) => {
-    console.log(event);
+    let selectedCategoryValue = event.originalEvent.target.innerText;
+    let selectedCategory = this.categoriesService.categoriesArray.find((category) => { return category.name == selectedCategoryValue });
+    if (selectedCategory.name == "All") {
+      this.productsService.getAllProducts();
+    }
+    else {
+      this.productsService.getAllProductsFromCategory(selectedCategory.id);
+    }
   }
 
-  handleAddToCart = (productToAdd : IProduct) => {
+  handleAddToCart = (productToAdd: IProduct) => {
     this.isModalShown = true;
     this.productToAdd = productToAdd;
   }
+
 }

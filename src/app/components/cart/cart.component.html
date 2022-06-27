@@ -7,7 +7,7 @@
         <ng-template let-ICartItem pTemplate="listItem">
             <div class="col-12">
                 <div class="cart-item-list-item">
-                    <img [src]="ICartItem.productImg" [alt]="ICartItem.productName" />
+                    <img [src]="'/assets/images/' + ICartItem.productImg" [alt]="ICartItem.productName" />
                     <div class="cart-item-list-detail">
                         <div class="cart-item-name">{{ICartItem.productName}}</div>
                         <div class="cart-item-description">Amount: {{ICartItem.quantity}}</div>
@@ -26,11 +26,12 @@
             </div>
         </ng-template>
     </p-dataView>
+    <app-add-cart-item-modal *ngIf="isModalShown" [(isModalShown)]="isModalShown" [cartItemToEdit]="cartItemToEdit"></app-add-cart-item-modal>
+    
     <span class="p-buttonset footer-buttons-set">
         <button pButton pRipple label="Clear Cart" class="footer-button" (click)="handleClearCart()"
             [disabled]="cartItemsService.cartItems.length == 0"></button>
         <button pButton pRipple label="Payment" class="footer-button" (click)="handlePayment()"
-            [disabled]="cartItemsService.cartItems.length == 0"></button>
-        
+            [disabled]="cartItemsService.cartItems.length == 0"></button>       
     </span>
 </div>

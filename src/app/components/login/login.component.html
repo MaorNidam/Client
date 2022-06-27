@@ -23,7 +23,7 @@
             class="p-error block">Password is required.</small>
         <br>
 
-        <button pButton pRipple type="submit" label="Login"></button>
+        <button pButton pRipple type="submit" label="Login" [disabled]="loginForm.invalid"></button>
         <div>*Required fields.</div>
     </form>
 </div>

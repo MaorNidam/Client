@@ -18,13 +18,17 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isModalShown: boolean = false;
+  cartItemToEdit : ICartItem;
+
   handleDelete = (cartItemId: number) => {
     let cartId = this.cartsService.getCart().id;
     this.cartItemsService.deleteCartItem(cartItemId, cartId);
   }
 
   handleEdit = (cartItem: ICartItem) => {
-
+    this.isModalShown = true;
+    this.cartItemToEdit = cartItem;
   }
 
   handleClearCart = () => {

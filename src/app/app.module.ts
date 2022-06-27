@@ -30,6 +30,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { TabViewModule } from 'primeng/tabview';
 import { DialogModule } from 'primeng/dialog';
 import {InputNumberModule} from 'primeng/inputnumber';
+import { AddCartItemModalComponent } from './components/add-cart-item-modal/add-cart-item-modal.component';
 
 
 
@@ -45,7 +46,8 @@ import {InputNumberModule} from 'primeng/inputnumber';
     RegisterAccountComponent,
     RegisterPersonalInfoComponent,
     CartComponent,
-    ProductsComponent
+    ProductsComponent,
+    AddCartItemModalComponent
   ],
   imports: [
     BrowserModule,

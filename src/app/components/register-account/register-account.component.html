@@ -12,7 +12,6 @@
         class="p-error block">Id already registered.</small>
     <small *ngIf="accountForm.controls['id'].hasError('idLengthValidator') && accountForm.controls['id'].dirty" id="id-help"
         class="p-error block">Id must contain 9 digits.</small>
-    <br>
 
     <div>Enter your e-mail address:*</div>
     <span class="p-float-label">
@@ -25,7 +24,6 @@
         class="p-error block">E-mail is required.</small>
     <small *ngIf="accountForm.get('email').hasError('isExist') && accountForm.get('email').dirty" id="email-help"
         class="p-error block">E-mail already registered.</small>
-    <br>
 
     <div>Enter a password:*</div>
     <span class="p-float-label">
@@ -47,7 +45,6 @@
     <small
         *ngIf="(accountForm.get('password').hasError('minlength') || accountForm.get('password').hasError('maxlength') ) && accountForm.get('password').dirty"
         id="email-help" class="p-error block">Please follow the requirements.</small>
-    <br>
 
     <div>Verify your password:*</div>
     <span class="p-float-label">
@@ -58,7 +55,6 @@
     </span>
     <small *ngIf="accountForm.hasError('passwordMatchValidator') && accountForm.get('verifyPassword').touched"
         id="verify-password-help" class="p-error block">Password doesn't match.</small>
-    <br>
 
     <p-button type="submit" [disabled]="accountForm.invalid">Next</p-button>
     <small>*Required fields.</small>

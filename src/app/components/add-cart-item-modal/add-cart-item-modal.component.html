@@ -1,0 +1,11 @@
+<p-dialog [header]="cartItemToEdit?.productName" [(visible)]="isModalShown" [modal]="true" (onHide)="handleModalHide()">
+    <div class="add-dialog-content">
+        <img [src]="cartItemToEdit?.productImg" [alt]="productToAdd?.name" /> <br>
+        How many would you like? <br>
+        <div *ngIf="amountToAdd != 0" class="total-price">Total price: {{cartItemToEdit?.price * amountToAdd | currency:"ILS":"symbol"}} </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-inputNumber [(ngModel)]="amountToAdd" [showButtons]="true" mode="decimal" [min]=0></p-inputNumber> <br>
+        <button pButton pRipple  label="Add To Cart" styleClass="modal-button" (click)="handleAddButton()"></button>
+    </ng-template>
+</p-dialog>

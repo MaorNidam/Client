@@ -11,10 +11,12 @@ export class ProductsService {
 
   baseUrl : string = "http://localhost:3001/products/";
   productsArray: IProduct[] = [];
+  amountOfProducts: number;
 
   getAllProducts = () : void => {
     this.http.get<IProduct[]>(this.baseUrl).subscribe((productsResponse) => {
       this.productsArray = productsResponse;
+      this.amountOfProducts = this.productsArray.length;
     }, (e) => {
       console.log(e);
       alert("Something went wrong.");
