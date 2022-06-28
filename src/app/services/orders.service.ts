@@ -49,8 +49,6 @@ export class OrdersService {
       ordersResponse.forEach((day) => {
         this.busyDays.push(new Date(day));
       });
-      console.log(this.busyDays);
-      
     }, (e) => {
       alert("Something went wrong.");
       console.log(e);

@@ -1,5 +1,6 @@
-<p-tabView (onChange)="handleCategoryChange($event)">
-    <p-tabPanel *ngFor="let category of categoriesService.categoriesArray;" [header]="category.name" style="display: hidden;"></p-tabPanel>
+<p-tabView (onChange)="handleCategoryChange($event)" [(activeIndex)]="categoriesService.activeCategory" [scrollable]="true">
+    <p-tabPanel *ngFor="let category of categoriesService.categoriesArray;" [header]="category.name">
+    </p-tabPanel>
 </p-tabView>
 <div class="product-container">
     <p-dataView [value]="productsService.productsArray" layout="grid" [paginator]="true" [rows]="9">

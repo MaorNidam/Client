@@ -11,10 +11,15 @@ export class CartItemsService {
 
   baseUrl = 'http://localhost:3001/cart-items/'
   cartItems: ICartItem[] = [];
+  totalPrice: number = 0;
 
   getCartItems = (cartId) => {
+    this.totalPrice = 0;
     this.http.get<ICartItem[]>(this.baseUrl + cartId).subscribe((cartItemsResponse) => {
       this.cartItems = cartItemsResponse;
+      for (let item of this.cartItems) {
+        this.totalPrice += item.price * item.quantity;
+      }
     }, (e) => {
       alert("Something went wrong");
       console.log(e);

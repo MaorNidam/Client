@@ -1,0 +1,31 @@
+.cart {
+    display: inline-flex;
+    width: 30%;
+    height: 85vh;
+}
+
+.order-container {
+    display: flex;
+    margin: 20px;
+    justify-content: space-evenly;
+}
+
+.order-input {
+    width: 30%;
+}
+
+.order-form {
+    display: inline-flex;
+    width: 65%;
+    height: 85vh;
+    padding: 10px;
+    overflow: auto;
+}
+
+.headline {
+    text-align: center;
+}
+
+app-cart {
+    height: 100%;
+}

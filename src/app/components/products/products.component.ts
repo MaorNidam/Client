@@ -35,6 +35,8 @@ export class ProductsComponent implements OnInit {
     else {
       this.productsService.getAllProductsFromCategory(selectedCategory.id);
     }
+    console.log(this.categoriesService.activeCategory);
+    
   }
 
   handleAddToCart = (productToAdd: IProduct) => {

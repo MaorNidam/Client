@@ -65,3 +65,8 @@ img {
 .footer-button {
     width: 50%;
 }
+
+.total-price {
+    float: right;
+}
+

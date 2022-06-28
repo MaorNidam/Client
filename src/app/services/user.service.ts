@@ -76,4 +76,8 @@ export class UserService {
     this.currentUser = newUser;
     this.currentUserSubject.next(newUser);
   }
+
+  getUser = () : IUser => {
+    return this.currentUserSubject.value;
+  }
 }

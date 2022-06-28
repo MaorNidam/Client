@@ -11,6 +11,7 @@ export class CategoriesService {
    }
 
   categoriesArray : ICategory[] = [{id : 0, name: "All"}];
+  activeCategory : number = 0;
 
   getAllCategories = () => {
     this.http.get<ICategory[]>('http://localhost:3001/categories').subscribe((categoriesResponse) => {
@@ -22,4 +23,5 @@ export class CategoriesService {
       alert("Something went wrong.")
     })
   }
+
 }

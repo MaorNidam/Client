@@ -36,12 +36,12 @@ export class AddCartItemModalComponent implements OnInit {
   }
 
   @Input() isModalShown: Boolean = false;
-  @Output() isModalShownChange = new EventEmitter()
+  @Output() isModalShownChange = new EventEmitter();
   @Input() productToAdd: IProduct;
   @Input() cartItemToEdit: ICartItem;
-  @Input() amountToAdd = 0;
+   amountToAdd = 0;
 
-  private isEdit: boolean = false;
+  isEdit: boolean = false;
   private serverCartItem: IServerCartItem;
 
   handleModalHide = () => {
@@ -55,6 +55,10 @@ export class AddCartItemModalComponent implements OnInit {
       quantity: this.amountToAdd,
       productId: this.cartItemToEdit.productId,
       id: this.cartItemToEdit.id
+    }
+    if (this.cartItemToEdit.quantity == this.amountToAdd) {
+      this.handleModalHide();
+      return;
     }
     if (this.isEdit) {
       if (this.serverCartItem.quantity == 0) {

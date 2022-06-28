@@ -31,7 +31,7 @@
     <br>
 
     <div>Choose your city*: </div>
-    <p-dropdown [options]="cities" formControlName="city" placeholder="Select a City"></p-dropdown> <br>
+    <p-dropdown [options]="stateService.cities" formControlName="city" placeholder="Select a City"></p-dropdown> <br>
     <small *ngIf="personalInfoForm.get('city').hasError('required') && personalInfoForm.get('city').touched"
         class="p-error block">City is required.</small>
     <br>

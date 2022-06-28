@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ICartItem } from 'src/app/models/ICartItems';
 import { CartItemsService } from 'src/app/services/cart-items.service';
 import { CartsService } from 'src/app/services/carts.service';
@@ -12,12 +13,14 @@ export class CartComponent implements OnInit {
 
   constructor(
     public cartItemsService: CartItemsService,
-    public cartsService: CartsService
+    public cartsService: CartsService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
   }
 
+  @Input() isOrder: boolean;
   isModalShown: boolean = false;
   cartItemToEdit : ICartItem;
 
@@ -37,6 +40,6 @@ export class CartComponent implements OnInit {
   }
 
   handlePayment = () => {
-    
+    this.router.navigate(['order']);
   }
 }

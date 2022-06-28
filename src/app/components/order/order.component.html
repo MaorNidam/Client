@@ -1,1 +1,53 @@
-<p>order works!</p>
+<div class="order-container">
+    <div class="cart card">
+        <app-cart [isOrder]="true"></app-cart>
+    </div>
+    <div class="order-form card">
+        <form [formGroup]="orderForm" (ngSubmit)="handleSubmit()">
+            <h3 class="headline">Shipping Details</h3>
+            <div>Choose your city*: </div>
+            <p-dropdown class="order-input" [options]="stateService.cities" formControlName="city"
+                placeholder="Select a City"></p-dropdown>
+            <br>
+            <small *ngIf="orderForm.get('city').hasError('required') && orderForm.get('city').touched"
+                class="p-error block">City is required.</small>
+            <br>
+
+            <div>Enter your street address:*</div>
+            <span class="p-float-label order-input">
+                <input name="street" pInputText id="streetInput" type="text" formControlName="street"
+                    (dblclick)="handleDblClickStreet()" />
+                <label for="streetInput">Street Address</label>
+            </span>
+            <small *ngIf="orderForm.get('street').hasError('required') && orderForm.get('street').touched"
+                class="p-error block">Street address is required.</small>
+            <small *ngIf="orderForm.controls['street'].hasError('maxlength') && orderForm.controls['street'].dirty"
+                class="p-error block">Address is too long.</small>
+            <br>
+            <div>When do you want to receive you purchase?*</div>
+            <p-calendar class="order-input" formControlName="shippingDate" dateFormat="dd.mm.yy"
+                [disabledDates]="ordersService.busyDays">
+            </p-calendar>
+            <small *ngIf="orderForm.get('shippingDate').hasError('required') && orderForm.get('shippingDate').touched"
+                class="p-error block">Shipping date is required.</small>
+            <br>
+
+            <h3 class="headline">Payment Details</h3>
+            <div>Enter credit card number:*</div>
+            <span class="order-input">
+                <p-inputMask class="order-input" name="creditCard" id="creditCardInput" mask="9999-9999-9999-9999"
+                    formControlName="creditCard"></p-inputMask>
+                <small
+                    *ngIf="orderForm.get('creditCard').hasError('required') && orderForm.get('creditCard').touched"
+                    class="p-error block">Credit card is required.</small>
+                <small
+                    *ngIf="orderForm.get('creditCard').hasError('patten') && orderForm.get('creditCard').touched"
+                    class="p-error block">Invalid credit card.</small>
+            </span>
+            <br> <br>
+
+            <p-button type="submit" [disabled]="orderForm.invalid">Submit</p-button>
+            <small>*Required fields.</small>
+        </form>
+    </div>
+</div>
