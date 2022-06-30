@@ -29,3 +29,7 @@
 app-cart {
     height: 100%;
 }
+
+.toast-button {
+    padding: 0;   
+}

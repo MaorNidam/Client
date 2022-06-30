@@ -20,13 +20,18 @@ export class ProductsComponent implements OnInit {
 
   isModalShown = false;
   productToAdd: IProduct;
+  activeCategory: number = 0;
 
 
 
   ngOnInit(): void {
+    this.categoriesService.followCategorySubject().subscribe((newCategory) => {
+      this.activeCategory = newCategory;
+    })
   }
 
   handleCategoryChange = (event: any) => {
+    this.categoriesService.setCategory(event.index);
     let selectedCategoryValue = event.originalEvent.target.innerText;
     let selectedCategory = this.categoriesService.categoriesArray.find((category) => { return category.name == selectedCategoryValue });
     if (selectedCategory.name == "All") {
@@ -35,8 +40,6 @@ export class ProductsComponent implements OnInit {
     else {
       this.productsService.getAllProductsFromCategory(selectedCategory.id);
     }
-    console.log(this.categoriesService.activeCategory);
-    
   }
 
   handleAddToCart = (productToAdd: IProduct) => {

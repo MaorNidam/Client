@@ -5,6 +5,15 @@
     <div class="order-form card">
         <form [formGroup]="orderForm" (ngSubmit)="handleSubmit()">
             <h3 class="headline">Shipping Details</h3>
+            <div>When do you want to receive your purchase?* <br>
+                <p-calendar class="order-input" formControlName="shippingDate" dateFormat="dd.mm.yy" [showIcon]="true"
+                    [disabledDates]="ordersService.busyDays" [minDate]="todayDate" [baseZIndex]="1">
+                </p-calendar>
+                <small
+                    *ngIf="orderForm.get('shippingDate').hasError('required') && orderForm.get('shippingDate').touched"
+                    class="p-error block">Shipping date is required.</small>
+            </div>
+            <br>
             <div>Choose your city*: </div>
             <p-dropdown class="order-input" [options]="stateService.cities" formControlName="city"
                 placeholder="Select a City"></p-dropdown>
@@ -23,25 +32,15 @@
                 class="p-error block">Street address is required.</small>
             <small *ngIf="orderForm.controls['street'].hasError('maxlength') && orderForm.controls['street'].dirty"
                 class="p-error block">Address is too long.</small>
-            <br>
-            <div>When do you want to receive you purchase?*</div>
-            <p-calendar class="order-input" formControlName="shippingDate" dateFormat="dd.mm.yy"
-                [disabledDates]="ordersService.busyDays">
-            </p-calendar>
-            <small *ngIf="orderForm.get('shippingDate').hasError('required') && orderForm.get('shippingDate').touched"
-                class="p-error block">Shipping date is required.</small>
-            <br>
 
             <h3 class="headline">Payment Details</h3>
             <div>Enter credit card number:*</div>
             <span class="order-input">
                 <p-inputMask class="order-input" name="creditCard" id="creditCardInput" mask="9999-9999-9999-9999"
                     formControlName="creditCard"></p-inputMask>
-                <small
-                    *ngIf="orderForm.get('creditCard').hasError('required') && orderForm.get('creditCard').touched"
+                <small *ngIf="orderForm.get('creditCard').hasError('required') && orderForm.get('creditCard').touched"
                     class="p-error block">Credit card is required.</small>
-                <small
-                    *ngIf="orderForm.get('creditCard').hasError('patten') && orderForm.get('creditCard').touched"
+                <small *ngIf="orderForm.get('creditCard').hasError('patten') && orderForm.get('creditCard').touched"
                     class="p-error block">Invalid credit card.</small>
             </span>
             <br> <br>
@@ -50,4 +49,25 @@
             <small>*Required fields.</small>
         </form>
     </div>
+    <!-- <p-toast position="center"></p-toast> -->
+    <p-toast position="center" key="c" (onClose)="onCloseToast()" [baseZIndex]="5000">
+        <ng-template let-message pTemplate="message">
+            <div class="flex flex-column" style="flex: 1">
+                <div class="text-center">
+                    <h4>{{message.summary}}</h4>
+                    <p>{{message.detail}}
+                        <button type="button" pButton pRipple (click)="onGetReceipt()" label="Click here"
+                            class="p-button-text toast-button" ></button>
+                    </p>
+                </div>
+                <!-- <div class="grid p-fluid">
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6">
+                        <button type="button" pButton (click)="onCloseToast()" label="Close" class="p-button"></button>
+                    </div>
+                </div> -->
+            </div>
+        </ng-template>
+    </p-toast>
 </div>

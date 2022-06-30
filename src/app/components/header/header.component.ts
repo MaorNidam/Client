@@ -34,21 +34,22 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchControl = this.formBuilder.control("");
+    this.categoriesService.followCategorySubject().subscribe((newCategory) => {
+      if (newCategory != 0) {
+        this.searchControl.setValue('');
+      }
+    })
 
     this.searchObservable = this.searchControl.valueChanges;
     this.searchObservable.subscribe((searchValue) => {
-      this.categoriesService.activeCategory = 0;
-      if (!searchValue) {
-        this.productsService.getAllProducts();
-      }
-      else {
+      this.categoriesService.setCategory(0);
+      if (searchValue) {
         this.productsService.searchProduct(searchValue);
       }
     })
   }
 
   currentUser: IUser;
-
   searchControl: FormControl;
   searchObservable: Observable<any>;
 
@@ -57,9 +58,4 @@ export class HeaderComponent implements OnInit {
     sessionStorage.removeItem("userData");
   }
 
-  searchProduct = () => {
-    let searchValue = this.searchControl.value;
-    this.productsService.searchProduct(searchValue);
-
-  }
 }

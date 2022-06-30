@@ -34,12 +34,8 @@ export class CartsService {
   }
 
   openCart = (): void => {
-    this.http.post<number>('http://localhost:3001/carts', {}).subscribe((cartId) => {
-      this.cart = {
-        id: cartId,
-        creationDate: new Date(),
-        isOpen: true
-      }
+    this.http.post<ICart>('http://localhost:3001/carts', {}).subscribe((cart) => {
+      this.cart = cart;
       this.cartSubject.next(this.cart);
     }, (e) => {
       alert("Something went wrong!");

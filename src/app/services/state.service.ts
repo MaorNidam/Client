@@ -20,6 +20,7 @@ export class StateService {
   ) {
     this.productsService.getAllProducts();
     this.ordersService.getOrdersAmount();
+
     this.usersService.followCurrentUser().subscribe((newUser) => {
       if (newUser) {
         this.cartsService.getLastCart();
@@ -32,7 +33,7 @@ export class StateService {
     });
 
     this.cartsService.followCartSubject().subscribe((newCart) => {
-      if (newCart) {
+      if (newCart && newCart.isOpen) {
         this.cartItemsService.getCartItems(newCart.id);
       }
       else {

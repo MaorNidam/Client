@@ -33,6 +33,9 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import { AddCartItemModalComponent } from './components/add-cart-item-modal/add-cart-item-modal.component';
 import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
+import {MessagesModule} from 'primeng/messages';
+import {ToastModule} from 'primeng/toast';
+
 
 
 
@@ -71,8 +74,10 @@ import {InputMaskModule} from 'primeng/inputmask';
     TabViewModule,
     DialogModule,
     InputNumberModule,
+    InputMaskModule,
     CalendarModule,
-    InputMaskModule
+    MessagesModule,
+    ToastModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }],
   bootstrap: [AppComponent]

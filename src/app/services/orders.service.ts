@@ -11,7 +11,7 @@ export class OrdersService {
   baseUrl: string = "http://localhost:3001/orders/";
   lastOrderDate: Date;
   amountOfOrder: number;
-  busyDays : Date[] = [];
+  busyDays: Date[] = [];
 
   getLastOrderDate = () => {
     this.http.get<any>(this.baseUrl).subscribe((ordersResponse) => {
@@ -24,18 +24,12 @@ export class OrdersService {
     })
   }
 
-  getReceipt = () => {
-    this.http.get(this.baseUrl).subscribe((ordersResponse) => {
-
-    }, (e) => {
-      alert("Something went wrong.");
-      console.log(e);
-
-    })
+  getReceipt = (cartId) => {
+    return this.http.get(this.baseUrl + cartId, { responseType: "blob" })
   }
 
   getOrdersAmount = () => {
-    this.http.get<number>(this.baseUrl+"amount/").subscribe((ordersResponse) => {
+    this.http.get<number>(this.baseUrl + "amount/").subscribe((ordersResponse) => {
       this.amountOfOrder = ordersResponse;
     }, (e) => {
       alert("Something went wrong.");
@@ -45,7 +39,7 @@ export class OrdersService {
   }
 
   getBusyDays = () => {
-    this.http.get<string[]>(this.baseUrl+ "/days").subscribe((ordersResponse) => {
+    this.http.get<string[]>(this.baseUrl + "/days").subscribe((ordersResponse) => {
       ordersResponse.forEach((day) => {
         this.busyDays.push(new Date(day));
       });

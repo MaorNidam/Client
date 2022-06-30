@@ -28,7 +28,7 @@
             <span *ngIf="cart?.isOpen && cartItemsService.cartItems.length > 0">You have an opened cart
                 from
                 {{cart.creationDate | date: 'fullDate'}}</span>
-            <span *ngIf="ordersService.lastOrderDate && cartItemsService.cartItems.length == 0">Your last order was at
+            <span *ngIf="ordersService.lastOrderDate && !cart?.isOpen">Your last order was at
                 {{ordersService.lastOrderDate | date: 'fullDate'}}</span>
         </div>
     </div>

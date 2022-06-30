@@ -1,4 +1,4 @@
-<p-tabView (onChange)="handleCategoryChange($event)" [(activeIndex)]="categoriesService.activeCategory" [scrollable]="true">
+<p-tabView (onChange)="handleCategoryChange($event)" [(activeIndex)]="activeCategory" [scrollable]="true">
     <p-tabPanel *ngFor="let category of categoriesService.categoriesArray;" [header]="category.name">
     </p-tabPanel>
 </p-tabView>

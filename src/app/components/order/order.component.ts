@@ -1,13 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { IOrderRequest } from 'src/app/models/IOrderRequest';
+import { CartItemsService } from 'src/app/services/cart-items.service';
+import { CartsService } from 'src/app/services/carts.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { StateService } from 'src/app/services/state.service';
 import { UserService } from 'src/app/services/user.service';
+import { saveAs } from 'file-saver';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css']
+  styleUrls: ['./order.component.css'],
+  providers: [MessageService]
 })
 export class OrderComponent implements OnInit {
 
@@ -15,43 +22,73 @@ export class OrderComponent implements OnInit {
     public formBuilder: UntypedFormBuilder,
     public stateService: StateService,
     public ordersService: OrdersService,
-    public userService: UserService
+    public userService: UserService,
+    public cartsService: CartsService,
+    public cartItemsService: CartItemsService,
+    public messageService: MessageService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
     this.ordersService.busyDays = [];
     this.ordersService.getBusyDays();
-    
+
     this.orderForm = this.formBuilder.group({
       city: [this.currentUserValue.city, [Validators.required]],
       street: ["", [Validators.required, Validators.maxLength(100)]],
-      shippingDate: ["", [Validators.required]],
+      shippingDate: [null, [Validators.required]],
       creditCard: [0, [Validators.required, Validators.pattern("^[0-9\-]+$")]],
     });
   }
 
-  orderForm : UntypedFormGroup;
+  orderForm: UntypedFormGroup;
   currentUserValue = this.userService.getUser();
+  todayDate = new Date();
 
 
   handleSubmit = () => {
-    console.log(this.orderForm);
+    let creditCard: string = this.orderForm.controls['creditCard'].value
+    let lastCardDigits = creditCard.slice(creditCard.length - 4, creditCard.length)
+    let orderRequest: IOrderRequest = {
+      cartId: this.cartsService.getCart().id,
+      finalPrice: this.cartItemsService.totalPrice,
+      shippingCity: this.orderForm.controls['city'].value,
+      shippingStreet: this.orderForm.controls['street'].value,
+      shippingDate: this.orderForm.controls['shippingDate'].value,
+      paymentLastDigits: lastCardDigits,
+    }
+    this.ordersService.addOrder(orderRequest);
+    this.messageService.add({ key: 'c', sticky: true, severity: 'success', summary: 'Order Confirmed', detail: 'Download receipt?' });
+
+  }
+
+  onCloseToast = () => {
+    this.cartsService.setCart(null);
+    this.ordersService.getLastOrderDate();
+    this.router.navigate(['home']);
+  }
+
+  onGetReceipt = () => {
+    let cartId = this.cartsService.getCart().id;
+    this.ordersService.getReceipt(cartId).subscribe(blob => {
+      saveAs(blob, cartId + '.txt');
+    });
   }
 
   handleDblClickStreet = () => {
     this.orderForm.controls['street'].setValue(this.currentUserValue.street);
   }
 
-  creditCardLengthValidator = (control: UntypedFormControl): ValidationErrors | null => {
-    let currentValue = control.value;
-    console.log(currentValue, currentValue.length);
-    
-    if (currentValue.length == 20) {
-      return null;
-    }
-    return {
-      'creditCardLengthValidator': true
-    }
-  }
+  // creditCardLengthValidator = (control: UntypedFormControl): ValidationErrors | null => {
+  //   let currentValue = control.value;
+  //   console.log(currentValue, currentValue.length);
+
+  //   if (currentValue.length == 20) {
+  //     return null;
+  //   }
+  //   return {
+  //     'creditCardLengthValidator': true
+  //   }
+  // }
 
 }
