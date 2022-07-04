@@ -7,6 +7,7 @@ import { RegisterPersonalInfoComponent } from './components/register-personal-in
 import { RegisterComponent } from './components/register/register.component';
 import { StartingPageComponent } from './components/starting-page/starting-page.component';
 import { StoreComponent } from './components/store/store.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
@@ -44,10 +45,12 @@ const routes: Routes = [
   },
   {
     path: 'store',
-    component: StoreComponent
+    component: StoreComponent,
+    canActivate: [LoginGuard]
   },{
     path: 'order',
     component: OrderComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: '',

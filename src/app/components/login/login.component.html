@@ -12,7 +12,7 @@
         <small *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched"
             class="p-error block">E-mail is required.</small>
         <br>
-        
+
         <div>Enter your password:*</div>
         <span class="p-float-label">
             <p-password id="password" [toggleMask]="true" [feedback]="false" formControlName="password"

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { IUser } from 'src/app/models/IUser';
 import { CartItemsService } from 'src/app/services/cart-items.service';
 import { CartsService } from 'src/app/services/carts.service';
 import { CategoriesService } from 'src/app/services/categories.service';
@@ -16,14 +17,19 @@ export class StoreComponent implements OnInit,OnDestroy {
 
   constructor(
     public categoriesService: CategoriesService,
-    public stateService: StateService 
+    public stateService: StateService,
+    public usersService: UserService
   ) { }
 
   ngOnInit(): void {
-    this.categoriesService.getAllCategories();
     this.stateService.isStore = true;
+    this.usersService.followCurrentUser().subscribe((newUser) => {
+      this.currentUser = newUser;
+    })
   }
 
+  currentUser : IUser;
+  
   ngOnDestroy(): void {
     this.stateService.isStore = false;
   }

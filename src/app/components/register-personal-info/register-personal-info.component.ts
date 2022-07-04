@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { StateService } from 'src/app/services/state.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -15,6 +16,7 @@ export class RegisterPersonalInfoComponent implements OnInit {
     public formBuilder: UntypedFormBuilder,
     public usersService: UserService,
     public stateService: StateService,
+    public messageService: MessageService,
     public router: Router
   ) { }
 
@@ -42,7 +44,7 @@ export class RegisterPersonalInfoComponent implements OnInit {
       this.router.navigate(['home']);
     }
     else {
-      alert("Something went wrong, please try again.")
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Error', detail: 'Something went wrong, please try again later.' });
       this.router.navigate(['home/register/account'])
     }
   }

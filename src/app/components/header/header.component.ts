@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchControl = this.formBuilder.control("");
-    this.categoriesService.followCategorySubject().subscribe((newCategory) => {
+    this.categoriesService.followActiveCategorySubject().subscribe((newCategory) => {
       if (newCategory != 0) {
         this.searchControl.setValue('');
       }
@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
 
     this.searchObservable = this.searchControl.valueChanges;
     this.searchObservable.subscribe((searchValue) => {
-      this.categoriesService.setCategory(0);
+      this.categoriesService.setActiveCategory(0);
       if (searchValue) {
         this.productsService.searchProduct(searchValue);
       }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { ICartItem } from '../models/ICartItems';
 
 @Injectable({
@@ -7,7 +8,7 @@ import { ICartItem } from '../models/ICartItems';
 })
 export class CartItemsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private messageService: MessageService) { }
 
   baseUrl = 'http://localhost:3001/cart-items/'
   cartItems: ICartItem[] = [];
@@ -21,9 +22,9 @@ export class CartItemsService {
         this.totalPrice += item.price * item.quantity;
       }
     }, (e) => {
-      alert("Something went wrong");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
-      
+
     })
   }
 
@@ -31,9 +32,9 @@ export class CartItemsService {
     this.http.post(this.baseUrl, cartItem).subscribe((cartItemsResponse) => {
       this.getCartItems(cartItem.cartId);
     }, (e) => {
-      alert("Something went wrong");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
-      
+
     })
   }
 
@@ -41,9 +42,9 @@ export class CartItemsService {
     this.http.put(this.baseUrl, cartItem).subscribe((cartItemsResponse) => {
       this.getCartItems(cartItem.cartId);
     }, (e) => {
-      alert("Something went wrong");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
-      
+
     })
   }
 
@@ -51,19 +52,19 @@ export class CartItemsService {
     this.http.delete(this.baseUrl + cartItemId).subscribe((cartItemsResponse) => {
       this.getCartItems(cartId);
     }, (e) => {
-      alert("Something went wrong");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
-      
+
     })
   }
 
   deleteAllItemsFromCart = (cartId) => {
-    this.http.delete(this.baseUrl +"by-cart/"+ cartId).subscribe((cartItemsResponse) => {
+    this.http.delete(this.baseUrl + "by-cart/" + cartId).subscribe((cartItemsResponse) => {
       this.getCartItems(cartId);
     }, (e) => {
-      alert("Something went wrong");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
-      
+
     })
   }
 }

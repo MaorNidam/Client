@@ -1,0 +1,11 @@
+.product-form {
+    padding: 15px;
+}
+
+.product-input {
+    width: 100%;
+}
+
+.ui-dropdown {
+    width: 100% !important;
+}

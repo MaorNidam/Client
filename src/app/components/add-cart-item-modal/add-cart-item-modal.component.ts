@@ -4,6 +4,7 @@ import { ICartItem } from 'src/app/models/ICartItems';
 import { CartItemsService } from 'src/app/services/cart-items.service';
 import { IServerCartItem } from 'src/app/models/IServerCartItem';
 import { CartsService } from 'src/app/services/carts.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-cart-item-modal',
@@ -15,7 +16,8 @@ export class AddCartItemModalComponent implements OnInit {
 
   constructor(
     public cartItemsService: CartItemsService,
-    public cartsService: CartsService
+    public cartsService: CartsService,
+    public messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class AddCartItemModalComponent implements OnInit {
   @Output() isModalShownChange = new EventEmitter();
   @Input() productToAdd: IProduct;
   @Input() cartItemToEdit: ICartItem;
-   amountToAdd = 0;
+  amountToAdd = 0;
 
   isEdit: boolean = false;
   private serverCartItem: IServerCartItem;
@@ -70,7 +72,7 @@ export class AddCartItemModalComponent implements OnInit {
     }
     else {
       if (this.serverCartItem.quantity == 0) {
-        alert("No amount was added.");
+        this.messageService.add({ key: 'appToast', severity: 'alert', summary: 'Amount', detail: 'No amount was choosen.' });
       }
       else {
         this.cartItemsService.addCartItem(this.serverCartItem);

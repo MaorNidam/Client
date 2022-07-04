@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ICart } from '../models/ICart';
 import { UserService } from './user.service';
@@ -9,7 +10,7 @@ import { UserService } from './user.service';
 })
 export class CartsService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private messageService: MessageService) {
 
   }
 
@@ -27,7 +28,7 @@ export class CartsService {
         this.cartSubject.next(this.cart);
       }
     }, (e) => {
-      alert("Something went wrong.");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
 
     })
@@ -38,7 +39,7 @@ export class CartsService {
       this.cart = cart;
       this.cartSubject.next(this.cart);
     }, (e) => {
-      alert("Something went wrong!");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
 
     })

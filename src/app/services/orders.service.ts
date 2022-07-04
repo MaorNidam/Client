@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { IOrderRequest } from '../models/IOrderRequest';
 
 @Injectable({
@@ -7,7 +8,7 @@ import { IOrderRequest } from '../models/IOrderRequest';
 })
 export class OrdersService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private messageService: MessageService) { }
   baseUrl: string = "http://localhost:3001/orders/";
   lastOrderDate: Date;
   amountOfOrder: number;
@@ -19,7 +20,7 @@ export class OrdersService {
         this.lastOrderDate = new Date(ordersResponse.orderDate);
       }
     }, (e) => {
-      alert("Something went wrong.");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
     })
   }
@@ -32,7 +33,7 @@ export class OrdersService {
     this.http.get<number>(this.baseUrl + "amount/").subscribe((ordersResponse) => {
       this.amountOfOrder = ordersResponse;
     }, (e) => {
-      alert("Something went wrong.");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
 
     })
@@ -44,7 +45,7 @@ export class OrdersService {
         this.busyDays.push(new Date(day));
       });
     }, (e) => {
-      alert("Something went wrong.");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
 
     })
@@ -54,7 +55,7 @@ export class OrdersService {
     this.http.post(this.baseUrl, orderRequest).subscribe((ordersResponse) => {
 
     }, (e) => {
-      alert("Something went wrong.");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
 
     })

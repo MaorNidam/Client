@@ -22,7 +22,7 @@ export class CartComponent implements OnInit {
 
   @Input() isOrder: boolean;
   isModalShown: boolean = false;
-  cartItemToEdit : ICartItem;
+  cartItemToEdit: ICartItem;
 
   handleDelete = (cartItemId: number) => {
     let cartId = this.cartsService.getCart().id;

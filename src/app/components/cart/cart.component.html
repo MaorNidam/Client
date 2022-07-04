@@ -13,7 +13,7 @@
                         <div class="cart-item-name">{{ICartItem.productName}}</div>
                         <div class="cart-item-description">Amount: {{ICartItem.quantity}}</div>
                     </div>
-                    <div class="cart-item-list-action"  *ngIf="!isOrder">
+                    <div class="cart-item-list-action" *ngIf="!isOrder">
                         <span class="p-buttonset ">
                             <button pButton pRipple class="cart-button p-button-text" icon="pi pi-pencil"
                                 (click)="handleEdit(ICartItem)"></button>

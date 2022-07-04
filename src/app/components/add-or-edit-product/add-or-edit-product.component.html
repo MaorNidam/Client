@@ -1,0 +1,48 @@
+<form [formGroup]="productForm" (ngSubmit)="handleSubmit()" class="product-form">
+    <h3 class="headline">Product</h3>
+    <div>Enter Product's name:*</div>
+    <span class="p-float-label product-input">
+        <input name="name" pInputText id="nameInput" type="text" formControlName="name" />
+        <label for="nameInput">Product name</label>
+    </span>
+    <small *ngIf="productForm.get('name').hasError('required') && productForm.get('name').touched"
+        class="p-error block">Product name is required.</small>
+    <small *ngIf="productForm.controls['name'].hasError('maxlength') && productForm.controls['name'].dirty"
+        class="p-error block">Name is too long.</small>
+
+    <div>Select category*: </div>
+    <p-dropdown styleClass="product-input" [options]="categories" optionLabel="name" optionValue="id"
+        formControlName="categoryId" placeholder="Select a Category" *ngIf="categories.length > 0">
+    </p-dropdown>
+    <br>
+    <small *ngIf="productForm.get('categoryId').hasError('required') && productForm.get('categoryId').touched"
+        class="p-error block">Category is required.</small>
+    <br>
+
+    <div>Enter price:*</div>
+    <span class="p-float-label product-input">
+        <input name="price" pInputText id="priceInput" type="number" formControlName="price" />
+        <label for="priceInput">Price</label>
+    </span>
+    <small *ngIf="productForm.get('price').hasError('required') && productForm.get('price').touched"
+        class="p-error block">Price is required.</small>
+    <small *ngIf="productForm.get('price').hasError('min') && productForm.get('price').touched"
+        class="p-error block">Price must be higher then 0.</small>
+
+    <div>Enter image url:*</div>
+    <span class="p-float-label product-input">
+        <input name="imgUrl" pInputText id="imgUrlInput" type="text" formControlName="imgUrl" />
+        <label for="imgUrlInput">Image Url</label>
+    </span>
+    <small *ngIf="productForm.get('imgUrl').hasError('required') && productForm.get('imgUrl').touched"
+        class="p-error block">Image url is required.</small>
+    <small *ngIf="productForm.controls['imgUrl'].hasError('maxlength') && productForm.controls['imgUrl'].dirty"
+        class="p-error block">Image url is too long.</small>
+        <br>
+    <span class="p-buttonset ">
+        <p-button *ngIf="!isEdit" type="submit" [disabled]="productForm.invalid">Add New Product</p-button>
+        <p-button *ngIf="isEdit" type="submit" [disabled]="productForm.invalid || productForm.pristine">Edit Product</p-button>
+        <p-button type="button" (onClick)="handleClear()">Clear</p-button>
+    </span>
+    <small>*Required fields.</small>
+</form>

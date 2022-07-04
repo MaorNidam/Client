@@ -16,23 +16,23 @@
             <br>
             <div>Choose your city*: </div>
             <p-dropdown class="order-input" [options]="stateService.cities" formControlName="city"
-                placeholder="Select a City"></p-dropdown>
+            placeholder="Select a City"></p-dropdown>
             <br>
             <small *ngIf="orderForm.get('city').hasError('required') && orderForm.get('city').touched"
-                class="p-error block">City is required.</small>
+            class="p-error block">City is required.</small>
             <br>
-
+            
             <div>Enter your street address:*</div>
             <span class="p-float-label order-input">
                 <input name="street" pInputText id="streetInput" type="text" formControlName="street"
                     (dblclick)="handleDblClickStreet()" />
-                <label for="streetInput">Street Address</label>
+                    <label for="streetInput">Street Address</label>
             </span>
             <small *ngIf="orderForm.get('street').hasError('required') && orderForm.get('street').touched"
-                class="p-error block">Street address is required.</small>
+            class="p-error block">Street address is required.</small>
             <small *ngIf="orderForm.controls['street'].hasError('maxlength') && orderForm.controls['street'].dirty"
-                class="p-error block">Address is too long.</small>
-
+            class="p-error block">Address is too long.</small>
+            
             <h3 class="headline">Payment Details</h3>
             <div>Enter credit card number:*</div>
             <span class="order-input">

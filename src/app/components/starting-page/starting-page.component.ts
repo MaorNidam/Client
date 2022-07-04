@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ICart } from 'src/app/models/ICart';
 import { IUser } from 'src/app/models/IUser';
 import { CartItemsService } from 'src/app/services/cart-items.service';
@@ -11,7 +12,8 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-starting-page',
   templateUrl: './starting-page.component.html',
-  styleUrls: ['./starting-page.component.css']
+  styleUrls: ['./starting-page.component.css'],
+  providers: [MessageService]
 })
 export class StartingPageComponent implements OnInit {
 
@@ -21,6 +23,7 @@ export class StartingPageComponent implements OnInit {
     public usersService: UserService,
     public cartsService: CartsService,
     public cartItemsService: CartItemsService,
+    public messageService: MessageService,
     public router : Router
   ) { }
 
@@ -32,8 +35,9 @@ export class StartingPageComponent implements OnInit {
     this.cartsService.followCartSubject().subscribe((newCart) => {
       this.cart = newCart;
     })
-  }
 
+  }
+  
   cart: ICart;
   currentUser: IUser;
   isLogin: boolean = true;

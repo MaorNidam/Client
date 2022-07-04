@@ -7,6 +7,7 @@ import { CartsService } from './carts.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { OrdersService } from './orders.service';
 import { CartItemsService } from './cart-items.service';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private cartService: CartsService,
+    private messageService: MessageService
   ) {
     let userJson = sessionStorage.getItem("userData");
     if (userJson) {
@@ -51,16 +53,21 @@ export class UserService {
 
     }, (e) => {
       console.log(e);
-      alert("Something went wrong.");
+      if (e.error == "Invalid e-mail or password.") {
+        this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Log in failed.', detail: 'Invalid e-mail or password.' });
+      }
+      else {
+        this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
+      }
     })
   }
 
   register = (userRequest: IRegister): void => {
     this.http.post('http://localhost:3001/users/', userRequest).subscribe((registerResponse) => {
-      alert("Register successful")
+      this.messageService.add({ key: 'appToast', severity: 'success', summary: 'Success!', detail: 'Register was successful.' });
     }, (e) => {
       console.log(e);
-      alert("Something went wrong.");
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
     })
   }
 

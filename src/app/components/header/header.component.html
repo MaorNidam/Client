@@ -15,12 +15,12 @@
       </li> -->
     </ul>
     <div class="d-flex user-name" *ngIf="currentUser">Hello {{currentUser.firstName}} {{currentUser.lastName}}</div>
-    <form class="d-flex input-group w-auto" *ngIf="currentUser">
-      <span class="p-input-icon-left p-float-label">
+    <form class="d-flex input-group w-auto" *ngIf="currentUser && stateService.isStore">
+      <span class="p-input-icon-left p-float-label" >
         <i class="pi pi-search"></i>
-        <input id="searchInput" type="text" pInputText [formControl]="searchControl" *ngIf="stateService.isStore">
-        <label for="searchInput">Search Product</label>         
-    </span>
+        <input id="searchInput" type="text" pInputText [formControl]="searchControl" >
+        <label for="searchInput">Search Product</label>
+      </span>
     </form>
   </div>
 </nav>

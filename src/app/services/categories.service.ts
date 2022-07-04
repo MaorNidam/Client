@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ICategory } from '../models/ICategory';
 
@@ -8,29 +9,33 @@ import { ICategory } from '../models/ICategory';
 })
 export class CategoriesService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private messageService: MessageService) {
    }
 
-  categoriesArray : ICategory[] = [{id : 0, name: "All"}];
+  private categoriesArray : ICategory[] = [];
   private activeCategory : number = 0;
   activeCategorySubject = new BehaviorSubject(0);
+  categoriesArraySubject = new BehaviorSubject([]);
 
   getAllCategories = () => {
     this.http.get<ICategory[]>('http://localhost:3001/categories').subscribe((categoriesResponse) => {
-      categoriesResponse.forEach((category) => {
-        this.categoriesArray.push(category);
-      });
+      this.categoriesArray = categoriesResponse;
+      this.categoriesArraySubject.next(this.categoriesArray);
     },(e) => {
       console.log(e);
-      alert("Something went wrong.")
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
     })
   }
 
-  followCategorySubject = () : Observable<number> => {
+  followCategoriesArraySubject = (): Observable<ICategory[]> => {
+    return this.categoriesArraySubject.asObservable();
+  }
+
+  followActiveCategorySubject = () : Observable<number> => {
     return this.activeCategorySubject.asObservable();
   }
 
-  setCategory = (newCategory) => {
+  setActiveCategory = (newCategory) => {
     this.activeCategorySubject.next(newCategory);
   }
 

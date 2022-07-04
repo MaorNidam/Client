@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { IUser } from '../models/IUser';
 import { CartItemsService } from './cart-items.service';
 import { CartsService } from './carts.service';
+import { CategoriesService } from './categories.service';
 import { OrdersService } from './orders.service';
 import { ProductsService } from './products.service';
 import { UserService } from './user.service';
@@ -13,6 +14,7 @@ export class StateService {
 
   constructor(
     private productsService: ProductsService,
+    private categoriesService: CategoriesService,
     private ordersService: OrdersService,
     private usersService: UserService,
     private cartsService: CartsService,
@@ -20,6 +22,7 @@ export class StateService {
   ) {
     this.productsService.getAllProducts();
     this.ordersService.getOrdersAmount();
+    this.categoriesService.getAllCategories();
 
     this.usersService.followCurrentUser().subscribe((newUser) => {
       if (newUser) {

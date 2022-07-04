@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Observable, map, catchError, of } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,7 +15,9 @@ export class RegisterAccountComponent implements OnInit {
   constructor(
     public formBuilder: UntypedFormBuilder,
     public usersService: UserService,
-    public router: Router) { }
+    public messageService: MessageService,
+    public router: Router
+    ) { }
 
   ngOnInit(): void {
     this.accountForm = this.formBuilder.group({
@@ -75,7 +78,7 @@ export class RegisterAccountComponent implements OnInit {
       ),
       catchError((e) => {
         console.log(e);
-        alert("Something went wrong, please try again.")
+        this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
         return of({ "serverError": true });
       })
     )

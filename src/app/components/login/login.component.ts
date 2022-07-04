@@ -35,16 +35,7 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.get(['email']).value,
       password: this.loginForm.get(['password']).value
     }
-    try {
-      this.validateLogin(user);
-      this.usersService.login(user.email, user.password)
-    }
-    catch (e) {
 
-    }
-  }
-
-  validateLogin = (user: any) => {
-
+    this.usersService.login(user.email, user.password);
   }
 }

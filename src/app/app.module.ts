@@ -35,6 +35,9 @@ import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
 import {MessagesModule} from 'primeng/messages';
 import {ToastModule} from 'primeng/toast';
+import { AddOrEditProductComponent } from './components/add-or-edit-product/add-or-edit-product.component';
+import { MessageService } from 'primeng/api';
+import { UserService } from './services/user.service';
 
 
 
@@ -52,7 +55,8 @@ import {ToastModule} from 'primeng/toast';
     RegisterPersonalInfoComponent,
     CartComponent,
     ProductsComponent,
-    AddCartItemModalComponent
+    AddCartItemModalComponent,
+    AddOrEditProductComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +83,7 @@ import {ToastModule} from 'primeng/toast';
     MessagesModule,
     ToastModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
