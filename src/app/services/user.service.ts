@@ -64,7 +64,7 @@ export class UserService {
 
   register = (userRequest: IRegister): void => {
     this.http.post('http://localhost:3001/users/', userRequest).subscribe((registerResponse) => {
-      this.messageService.add({ key: 'appToast', severity: 'success', summary: 'Success!', detail: 'Register was successful.' });
+      this.messageService.add({ key: 'appToast', severity: 'success', summary: 'Success!', detail: 'Your registration has been successfully completed.' });
     }, (e) => {
       console.log(e);
       this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });

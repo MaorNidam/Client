@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory';
 import { IProduct } from 'src/app/models/IProduct';
 import { CategoriesService } from 'src/app/services/categories.service';
@@ -11,7 +12,7 @@ import { ProductsService } from 'src/app/services/products.service';
   templateUrl: './add-or-edit-product.component.html',
   styleUrls: ['./add-or-edit-product.component.css']
 })
-export class AddOrEditProductComponent implements OnInit {
+export class AddOrEditProductComponent implements OnInit, OnDestroy {
 
   constructor(
     public formBuilder: UntypedFormBuilder,
@@ -19,6 +20,10 @@ export class AddOrEditProductComponent implements OnInit {
     public productsService: ProductsService,
     public messageService: MessageService
   ) { }
+  ngOnDestroy(): void {
+    this.productSubscription.unsubscribe();
+    this.categoriesSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     
@@ -29,11 +34,13 @@ export class AddOrEditProductComponent implements OnInit {
       categoryId: [null, [Validators.required]],
     })
     
-    this.categoriesService.followCategoriesArraySubject().subscribe((newCategoryArray) => {
+    this.categoriesSubscription = this.categoriesService.followCategoriesArraySubject().subscribe((newCategoryArray) => {
       this.categories = [...newCategoryArray];
     });
 
-    this.productsService.followProductToEditSubject().subscribe((newProduct) => {
+    this.productSubscription = this.productsService.followProductToEditSubject().subscribe((newProduct) => {
+      console.log("product subscribe", newProduct);
+      
       if (newProduct != null) {
         this.productForm.reset();
         this.selectedProduct = newProduct;
@@ -53,6 +60,8 @@ export class AddOrEditProductComponent implements OnInit {
   selectedProduct: IProduct;
   productForm: FormGroup;
   isEdit: boolean = false;
+  productSubscription: Subscription;
+  categoriesSubscription: Subscription;
 
   handleSubmit = () => {
     let productRequest = {
@@ -67,7 +76,6 @@ export class AddOrEditProductComponent implements OnInit {
     }
     else {
       this.productsService.addProduct(productRequest);
-      
     }
     this.handleClear();
   }

@@ -13,7 +13,6 @@ export class CategoriesService {
    }
 
   private categoriesArray : ICategory[] = [];
-  private activeCategory : number = 0;
   activeCategorySubject = new BehaviorSubject(0);
   categoriesArraySubject = new BehaviorSubject([]);
 

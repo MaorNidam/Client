@@ -1,10 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { IUser } from 'src/app/models/IUser';
-import { CartItemsService } from 'src/app/services/cart-items.service';
-import { CartsService } from 'src/app/services/carts.service';
 import { CategoriesService } from 'src/app/services/categories.service';
-import { OrdersService } from 'src/app/services/orders.service';
-import { ProductsService } from 'src/app/services/products.service';
 import { StateService } from 'src/app/services/state.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,15 +20,17 @@ export class StoreComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.stateService.isStore = true;
-    this.usersService.followCurrentUser().subscribe((newUser) => {
+    this. userSubscription = this.usersService.followCurrentUser().subscribe((newUser) => {
       this.currentUser = newUser;
     })
   }
 
   currentUser : IUser;
+  userSubscription : Subscription;
   
   ngOnDestroy(): void {
     this.stateService.isStore = false;
+    this.userSubscription.unsubscribe();
   }
 
   isCartDisplay: Boolean = true;

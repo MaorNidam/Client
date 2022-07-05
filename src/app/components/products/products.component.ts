@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ICartItem } from 'src/app/models/ICartItems';
 import { ICategory } from 'src/app/models/ICategory';
 import { IProduct } from 'src/app/models/IProduct';
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
 
   constructor(
     public categoriesService: CategoriesService,
@@ -21,28 +22,35 @@ export class ProductsComponent implements OnInit {
     public cartItemsService: CartItemsService,
     public usersService: UserService
   ) { }
+  ngOnDestroy(): void {
+    this.subscriptionsArray.forEach((sub) => {
+      sub.unsubscribe();
+    });
+  }
 
   isModalShown = false;
   productToAdd: IProduct;
   activeCategory: number = 0;
   currentUser: IUser;
   categories: ICategory[] = [];
+  subscriptionsArray: Subscription[] = [];
 
 
 
   ngOnInit(): void {
-    this.categoriesService.followCategoriesArraySubject().subscribe((newCategoryArray) => {
+    let categorySubscription = this.categoriesService.followCategoriesArraySubject().subscribe((newCategoryArray) => {
       this.categories = [...newCategoryArray];
-      this.categories.unshift({id : 0, name: "All"});
+      this.categories.unshift({ id: 0, name: "All" });
     });
 
-    this.categoriesService.followActiveCategorySubject().subscribe((newCategory) => {
+    let activeSubscription = this.categoriesService.followActiveCategorySubject().subscribe((newCategory) => {
       this.activeCategory = newCategory;
     })
 
-    this.usersService.followCurrentUser().subscribe((newUser) => {
+    let userSubscription = this.usersService.followCurrentUser().subscribe((newUser) => {
       this.currentUser = newUser;
     })
+    this.subscriptionsArray.push(categorySubscription, activeSubscription, userSubscription);
   }
 
   handleCategoryChange = (event: any) => {

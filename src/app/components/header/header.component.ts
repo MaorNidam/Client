@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, map, Observable, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, Observable, Subscription, tap } from 'rxjs';
 import { IUser } from 'src/app/models/IUser';
 import { CartItemsService } from 'src/app/services/cart-items.service';
 import { CartsService } from 'src/app/services/carts.service';
@@ -15,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit,OnDestroy {
 
   constructor(
     private usersService: UserService,
@@ -27,31 +27,42 @@ export class HeaderComponent implements OnInit {
     public stateService: StateService,
     private formBuilder: FormBuilder
   ) {
-    this.usersService.followCurrentUser().subscribe((newUser) => {
-      this.currentUser = newUser;
-    })
   }
-
+  ngOnDestroy(): void {
+    this.subscriptionArray.forEach((subscription) => {
+      subscription.unsubscribe();
+    })
+    this.subscriptionArray = [];
+  }
+  
   ngOnInit(): void {
     this.searchControl = this.formBuilder.control("");
-    this.categoriesService.followActiveCategorySubject().subscribe((newCategory) => {
+
+    let userSubscription = this.usersService.followCurrentUser().subscribe((newUser) => {
+      this.currentUser = newUser;
+    })
+    
+    let categorySubscription = this.categoriesService.followActiveCategorySubject().subscribe((newCategory) => {
       if (newCategory != 0) {
         this.searchControl.setValue('');
       }
     })
-
+    
     this.searchObservable = this.searchControl.valueChanges;
-    this.searchObservable.subscribe((searchValue) => {
+    let searchSubscribe = this.searchObservable.subscribe((searchValue) => {
       this.categoriesService.setActiveCategory(0);
       if (searchValue) {
         this.productsService.searchProduct(searchValue);
       }
     })
+
+    this.subscriptionArray.push(userSubscription, categorySubscription, searchSubscribe);
   }
 
   currentUser: IUser;
   searchControl: FormControl;
   searchObservable: Observable<any>;
+  subscriptionArray: Subscription[] = [];
 
   handleLogout = () => {
     this.usersService.setCurrentUser(null);
