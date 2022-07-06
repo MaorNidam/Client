@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IProduct } from '../models/IProduct';
+import { CategoriesService } from './categories.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  constructor(private http: HttpClient, private messageService: MessageService) { }
+  constructor(private http: HttpClient, private messageService: MessageService, private categoriesService: CategoriesService) { }
 
   baseUrl : string = "http://localhost:3001/products/";
   productsArray: IProduct[] = [];
@@ -20,6 +21,7 @@ export class ProductsService {
     this.http.get<IProduct[]>(this.baseUrl).subscribe((productsResponse) => {
       this.productsArray = productsResponse;
       this.amountOfProducts = this.productsArray.length;
+      this.categoriesService.setActiveCategory(0);
     }, (e) => {
       console.log(e);
       this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
@@ -58,9 +60,6 @@ export class ProductsService {
     this.http.put(this.baseUrl, productToEdit).subscribe((productsResponse) => {
       this.messageService.add({key: 'appToast', severity:'success', summary: 'Product updated!', detail: `${productToEdit.name} was updated successfully!`})
       this.getAllProducts();
-      // let newProductId = productsResponse;
-      // productToAdd.id = newProductId;
-      // this.productsArray.push(productToAdd);
     }, (e) => {
       console.log(e);
       this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });

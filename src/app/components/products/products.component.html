@@ -3,7 +3,7 @@
     </p-tabPanel>
 </p-tabView>
 <div class="product-container">
-    <p-dataView [value]="productsService.productsArray" layout="grid" [paginator]="true" [rows]="9">
+    <p-dataView #dataView [value]="productsService.productsArray" layout="grid" [paginator]="true" [rows]="9">
         <ng-template let-IProduct pTemplate="gridItem">
             <div class="p-col-12 p-md-4 inline">
                 <div class="product-grid-item product-card">

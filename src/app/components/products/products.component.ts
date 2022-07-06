@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DataView } from 'primeng/dataview';
 import { Subscription } from 'rxjs';
-import { ICartItem } from 'src/app/models/ICartItems';
 import { ICategory } from 'src/app/models/ICategory';
 import { IProduct } from 'src/app/models/IProduct';
 import { IUser } from 'src/app/models/IUser';
@@ -30,14 +30,15 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   isModalShown = false;
   productToAdd: IProduct;
-  activeCategory: number = 0;
+  activeCategory: number;
   currentUser: IUser;
   categories: ICategory[] = [];
   subscriptionsArray: Subscription[] = [];
-
+  @ViewChild('dataView') dataView : DataView;
 
 
   ngOnInit(): void {
+    this.productsService.getAllProducts();
     let categorySubscription = this.categoriesService.followCategoriesArraySubject().subscribe((newCategoryArray) => {
       this.categories = [...newCategoryArray];
       this.categories.unshift({ id: 0, name: "All" });
@@ -50,11 +51,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
     let userSubscription = this.usersService.followCurrentUser().subscribe((newUser) => {
       this.currentUser = newUser;
     })
+
     this.subscriptionsArray.push(categorySubscription, activeSubscription, userSubscription);
   }
 
   handleCategoryChange = (event: any) => {
     this.categoriesService.setActiveCategory(event.index);
+    this.dataView.first = 0;
     let selectedCategoryValue = event.originalEvent.target.innerText;
     let selectedCategory = this.categories.find((category) => { return category.name == selectedCategoryValue });
     if (selectedCategory.name == "All") {
