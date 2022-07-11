@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { StartingPageComponent } from './components/starting-page/starting-page.component';
 import { StoreComponent } from './components/store/store.component';
 import { LoginGuard } from './guards/login.guard';
+import { OrderGuard } from './guards/order.guard';
 
 const routes: Routes = [
   {
@@ -36,10 +37,6 @@ const routes: Routes = [
             pathMatch: 'full'
           }
         ]
-      }, {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full',
       }
     ],
   },
@@ -50,7 +47,7 @@ const routes: Routes = [
   },{
     path: 'order',
     component: OrderComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard, OrderGuard]
   },
   {
     path: '',

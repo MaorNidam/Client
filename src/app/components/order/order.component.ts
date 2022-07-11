@@ -57,13 +57,16 @@ export class OrderComponent implements OnInit {
       shippingDate: this.orderForm.controls['shippingDate'].value,
       paymentLastDigits: lastCardDigits,
     }
-    this.ordersService.addOrder(orderRequest);
-    this.messageService.add({ key: 'c', sticky: true, severity: 'success', summary: 'Order Confirmed', detail: 'Download receipt?' });
-
+    this.ordersService.addOrder(orderRequest).subscribe((ordersResponse) => {
+      this.messageService.add({ key: 'orderToast', sticky: true, severity: 'success', summary: 'Order Confirmed', detail: 'Download receipt?' });
+    }, (e) => {
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
+      console.log(e);
+    });
   }
 
   onCloseToast = () => {
-    this.cartsService.setCart(null);
+    this.cartsService.openCart();
     this.ordersService.getLastOrderDate();
     this.router.navigate(['home']);
   }
@@ -78,17 +81,5 @@ export class OrderComponent implements OnInit {
   handleDblClickStreet = () => {
     this.orderForm.controls['street'].setValue(this.currentUserValue.street);
   }
-
-  // creditCardLengthValidator = (control: UntypedFormControl): ValidationErrors | null => {
-  //   let currentValue = control.value;
-  //   console.log(currentValue, currentValue.length);
-
-  //   if (currentValue.length == 20) {
-  //     return null;
-  //   }
-  //   return {
-  //     'creditCardLengthValidator': true
-  //   }
-  // }
 
 }

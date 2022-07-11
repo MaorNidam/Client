@@ -25,7 +25,7 @@ export class StateService {
     this.categoriesService.getAllCategories();
 
     this.usersService.followCurrentUser().subscribe((newUser) => {
-      if (newUser) {
+      if (newUser && newUser.role == 'user') {
         this.cartsService.getLastCart();
         this.ordersService.getLastOrderDate();
       }
@@ -36,23 +36,26 @@ export class StateService {
     });
 
     this.cartsService.followCartSubject().subscribe((newCart) => {
-      if (newCart && newCart.isOpen) {
-        this.cartItemsService.getCartItems(newCart.id);
+      if (newCart) {
+        // Cart with id 0 means there were no carts for this user at the data base.
+        if (newCart?.id == 0 || newCart.isOpen == false) {
+          this.cartsService.openCart();
+        }
+        else {
+          this.cartItemsService.getCartItems(newCart.id);
+        }
       }
       else {
-        this.cartItemsService.cartItems = [];
+        this.cartItemsService.setCartItems(null);
       }
     })
   }
 
-  isStore : boolean = false;
+  isStore: boolean = false;
   cities: any[] = ['Akko', 'Afula', 'Al Buţayḩah', 'Al Khushnīyah', 'Ashdod', 'Ashqelon', 'Bat Yam', 'Beersheba', 'Bené Beraq',
-  'Bet Shemesh', 'Dimona', 'Eilat', 'El‘ad', 'Eṭ Ṭaiyiba', 'Fīq', 'Givatayim', 'Hadera', 'Haifa', 'Herẕliyya', 'Hod HaSharon',
-  'Holon', 'Jerusalem', 'Karmiel', 'Kefar Sava', 'Lod', 'Ma‘alot Tarshīḥā', 'Modi‘in Makkabbim Re‘ut', 'Nahariyya', 'Nazareth',
-  'Nes Ẕiyyona', 'Netanya', 'Netivot', 'Or Yehuda', 'Petaẖ Tiqwa', 'Qiryat Ata', 'Qiryat Bialik', 'Qiryat Gat', 'Qiryat Moẕqin',
-  'Qiryat Ono', 'Qiryat Yam', 'Ra‘ananna', 'Rahat', 'Ramat Gan', 'Ramat HaSharon', 'Ramla', 'Reẖovot', 'Rishon LeẔiyyon',
-  'Rosh Ha‘Ayin', 'Sakhnīn', 'Tamra', 'Tel Aviv-Yafo', 'Tiberias', 'Umm el Faḥm', 'Yehud', 'Ẕefat'];
-
-
-
+    'Bet Shemesh', 'Dimona', 'Eilat', 'El‘ad', 'Eṭ Ṭaiyiba', 'Fīq', 'Givatayim', 'Hadera', 'Haifa', 'Herẕliyya', 'Hod HaSharon',
+    'Holon', 'Jerusalem', 'Karmiel', 'Kefar Sava', 'Lod', 'Ma‘alot Tarshīḥā', 'Modi‘in Makkabbim Re‘ut', 'Nahariyya', 'Nazareth',
+    'Nes Ẕiyyona', 'Netanya', 'Netivot', 'Or Yehuda', 'Petaẖ Tiqwa', 'Qiryat Ata', 'Qiryat Bialik', 'Qiryat Gat', 'Qiryat Moẕqin',
+    'Qiryat Ono', 'Qiryat Yam', 'Ra‘ananna', 'Rahat', 'Ramat Gan', 'Ramat HaSharon', 'Ramla', 'Reẖovot', 'Rishon LeẔiyyon',
+    'Rosh Ha‘Ayin', 'Sakhnīn', 'Tamra', 'Tel Aviv-Yafo', 'Tiberias', 'Umm el Faḥm', 'Yehud', 'Ẕefat'];
 }

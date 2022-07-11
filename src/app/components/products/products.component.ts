@@ -46,6 +46,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
     let activeSubscription = this.categoriesService.followActiveCategorySubject().subscribe((newCategory) => {
       this.activeCategory = newCategory;
+      if (this.dataView) {
+        this.dataView.first = 0;
+      }
     })
 
     let userSubscription = this.usersService.followCurrentUser().subscribe((newUser) => {
@@ -57,7 +60,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   handleCategoryChange = (event: any) => {
     this.categoriesService.setActiveCategory(event.index);
-    this.dataView.first = 0;
     let selectedCategoryValue = event.originalEvent.target.innerText;
     let selectedCategory = this.categories.find((category) => { return category.name == selectedCategoryValue });
     if (selectedCategory.name == "All") {

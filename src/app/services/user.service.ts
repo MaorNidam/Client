@@ -50,6 +50,7 @@ export class UserService {
           this.cartService.setCart(loginResponse.userCart);
         }
       }
+      
 
     }, (e) => {
       console.log(e);

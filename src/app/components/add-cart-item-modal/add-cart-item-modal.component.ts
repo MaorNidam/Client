@@ -1,10 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IProduct } from 'src/app/models/IProduct';
 import { ICartItem } from 'src/app/models/ICartItems';
 import { CartItemsService } from 'src/app/services/cart-items.service';
 import { IServerCartItem } from 'src/app/models/IServerCartItem';
 import { CartsService } from 'src/app/services/carts.service';
 import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-cart-item-modal',
@@ -12,21 +13,28 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./add-cart-item-modal.component.css']
 })
 
-export class AddCartItemModalComponent implements OnInit {
+export class AddCartItemModalComponent implements OnInit, OnDestroy {
 
   constructor(
     public cartItemsService: CartItemsService,
     public cartsService: CartsService,
     public messageService: MessageService
   ) { }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
+    this.subscription = this.cartItemsService.followCartItemsSubject().subscribe((newItems) => {
+      this.cartItems = newItems;
+    });
+
     if (this.cartItemToEdit) {
       this.amountToAdd = this.cartItemToEdit.quantity;
       this.isEdit = true;
     }
     if (this.productToAdd) {
-      this.cartItemToEdit = this.cartItemsService.cartItems.find((cartItem) => { return cartItem.productId == this.productToAdd.id });
+      this.cartItemToEdit = this.cartItems.find((cartItem) => { return cartItem.productId == this.productToAdd.id });
       if (!this.cartItemToEdit) {
         this.convertProductToCartItem();
       }
@@ -42,6 +50,8 @@ export class AddCartItemModalComponent implements OnInit {
   @Input() productToAdd: IProduct;
   @Input() cartItemToEdit: ICartItem;
   amountToAdd = 0;
+  cartItems: ICartItem[] = [];
+  subscription : Subscription;
 
   isEdit: boolean = false;
   private serverCartItem: IServerCartItem;

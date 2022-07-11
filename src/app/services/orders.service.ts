@@ -8,7 +8,10 @@ import { IOrderRequest } from '../models/IOrderRequest';
 })
 export class OrdersService {
 
-  constructor(private http: HttpClient, private messageService: MessageService) { }
+  constructor(
+    private http: HttpClient, 
+    private messageService: MessageService,
+    ) { }
   baseUrl: string = "http://localhost:3001/orders/";
   lastOrderDate: Date;
   amountOfOrder: number;
@@ -47,17 +50,10 @@ export class OrdersService {
     }, (e) => {
       this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
-
     })
   }
 
   addOrder = (orderRequest: IOrderRequest) => {
-    this.http.post(this.baseUrl, orderRequest).subscribe((ordersResponse) => {
-
-    }, (e) => {
-      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
-      console.log(e);
-
-    })
+    return this.http.post(this.baseUrl, orderRequest);
   }
 }

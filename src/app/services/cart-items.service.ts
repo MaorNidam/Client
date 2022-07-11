@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ICartItem } from '../models/ICartItems';
 
 @Injectable({
@@ -11,7 +12,8 @@ export class CartItemsService {
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
   baseUrl = 'http://localhost:3001/cart-items/'
-  cartItems: ICartItem[] = [];
+  private cartItems: ICartItem[];
+  private cartItemsSubject = new BehaviorSubject<ICartItem[]>(null);
   totalPrice: number = 0;
 
   getCartItems = (cartId) => {
@@ -21,6 +23,7 @@ export class CartItemsService {
       for (let item of this.cartItems) {
         this.totalPrice += item.price * item.quantity;
       }
+      this.cartItemsSubject.next(this.cartItems);
     }, (e) => {
       this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
@@ -66,5 +69,13 @@ export class CartItemsService {
       console.log(e);
 
     })
+  }
+
+  followCartItemsSubject = () : Observable<ICartItem[]> => {
+    return this.cartItemsSubject.asObservable();
+  }
+
+  setCartItems = (cartItems: ICartItem[]) => {
+    this.cartItemsSubject.next(cartItems);
   }
 }

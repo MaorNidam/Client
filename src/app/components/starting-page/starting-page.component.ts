@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ICart } from 'src/app/models/ICart';
+import { ICartItem } from 'src/app/models/ICartItems';
 import { IUser } from 'src/app/models/IUser';
 import { CartItemsService } from 'src/app/services/cart-items.service';
 import { CartsService } from 'src/app/services/carts.service';
@@ -16,7 +17,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./starting-page.component.css'],
   providers: [MessageService]
 })
-export class StartingPageComponent implements OnInit,OnDestroy {
+export class StartingPageComponent implements OnInit, OnDestroy {
 
   constructor(
     public productsService: ProductsService,
@@ -25,7 +26,7 @@ export class StartingPageComponent implements OnInit,OnDestroy {
     public cartsService: CartsService,
     public cartItemsService: CartItemsService,
     public messageService: MessageService,
-    public router : Router
+    public router: Router
   ) { }
   ngOnDestroy(): void {
     this.subscriptionsArray.forEach((sub) => {
@@ -42,17 +43,25 @@ export class StartingPageComponent implements OnInit,OnDestroy {
       this.cart = newCart;
     })
 
-    this.subscriptionsArray.push(userSubscription, cartSubscription);
+    let cartItemsSub = this.cartItemsService.followCartItemsSubject().subscribe((newItems) => {
+      if (newItems) {
+        this.cartItems = newItems;
+      }
+    })
+
+    if(!this.currentUser) {
+      this.router.navigate(['/home/login']);
+    }
+    else {
+      this.router.navigate(['/home']);
+    }
+
+    this.subscriptionsArray.push(userSubscription, cartSubscription, cartItemsSub);
   }
-  
+
   cart: ICart;
   currentUser: IUser;
-  isLogin: boolean = true;
   subscriptionsArray: Subscription[] = [];
-  
-  handleStartShoppingButton = () => {
-    this.cartsService.openCart();
-    this.router.navigate(['/store']);
-  }
-  
+  cartItems: ICartItem[];
+
 }

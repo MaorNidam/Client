@@ -15,10 +15,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header with our token if available
         let currentUserJson: string | null = sessionStorage.getItem("userData");
-
-        // Logically - token = null ---> false
-        // token != null --> true
-        // A situation for example : login (no token yet)
         if (currentUserJson) {
             let currentUser = JSON.parse(currentUserJson);
             let token = currentUser.token;

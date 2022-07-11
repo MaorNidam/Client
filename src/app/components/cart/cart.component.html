@@ -1,5 +1,5 @@
 <div class="cart-container">
-    <p-dataView #dv [value]="cartItemsService.cartItems" filterBy="productName">
+    <p-dataView #dv [value]="cartItems" filterBy="productName">
         <ng-template pTemplate="header" class="header">
             <span>My Cart</span>
             <span class="total-price">Total: {{cartItemsService.totalPrice | currency: "ILS" : "symbol"}}</span>
@@ -32,13 +32,13 @@
 
     <span class="p-buttonset footer-buttons-set" *ngIf="!isOrder">
         <button pButton pRipple label="Clear Cart" class="footer-button" (click)="handleClearCart()"
-            [disabled]="cartItemsService.cartItems.length == 0"></button>
+            [disabled]="cartItems.length == 0"></button>
         <button pButton pRipple label="Payment" class="footer-button" (click)="handlePayment()"
-            [disabled]="cartItemsService.cartItems.length == 0"></button>
+            [disabled]="cartItems.length == 0"></button>
     </span>
     <span class="footer-buttons-set" *ngIf="isOrder">
         <button pButton pRipple label="Back To Store" class="footer-button" (click)="router.navigate(['store'])"
-            [disabled]="cartItemsService.cartItems.length == 0"></button>
+            [disabled]="cartItems.length == 0"></button>
 
     </span>
 </div>

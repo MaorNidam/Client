@@ -27,6 +27,14 @@ export class CartsService {
         };
         this.cartSubject.next(this.cart);
       }
+      else {
+        let noLastCartResponse : ICart = {
+          id: 0,
+          creationDate: null,
+          isOpen: false
+        }
+        this.cartSubject.next(noLastCartResponse);
+      }
     }, (e) => {
       this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
