@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { filter, map, Observable, of } from 'rxjs';
-import { ICartItem } from '../models/ICartItems';
+import { filter, map, Observable } from 'rxjs';
 import { IUser } from '../models/IUser';
 import { CartItemsService } from '../services/cart-items.service';
 import { UserService } from '../services/user.service';

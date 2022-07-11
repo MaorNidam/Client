@@ -38,6 +38,7 @@ import {ToastModule} from 'primeng/toast';
 import { AddOrEditProductComponent } from './components/add-or-edit-product/add-or-edit-product.component';
 import { MessageService } from 'primeng/api';
 import { UserService } from './services/user.service';
+import { MarkerPipe } from './pipes/marker.pipe';
 
 
 
@@ -56,7 +57,8 @@ import { UserService } from './services/user.service';
     CartComponent,
     ProductsComponent,
     AddCartItemModalComponent,
-    AddOrEditProductComponent
+    AddOrEditProductComponent,
+    MarkerPipe
   ],
   imports: [
     BrowserModule,

@@ -2,15 +2,15 @@
     <p-dataView #dv [value]="cartItems" filterBy="productName">
         <ng-template pTemplate="header" class="header">
             <span>My Cart</span>
-            <span class="total-price">Total: {{cartItemsService.totalPrice | currency: "ILS" : "symbol"}}</span>
-            <input type="search" pInputText placeholder="Search Cart" (input)="dv.filter($any($event.target).value)">
+            <span class="total-price">Total: {{cartItemsService.totalPrice | currency: "ILS" : "symbol"}}</span> <br>
+            <input type="search" pInputText placeholder="Search Cart" (input)="handleSearch($any($event.target).value)">
         </ng-template>
         <ng-template let-ICartItem pTemplate="listItem">
             <div class="col-12">
                 <div class="cart-item-list-item">
                     <img [src]="'/assets/images/' + ICartItem.productImg" [alt]="ICartItem.productName" />
                     <div class="cart-item-list-detail">
-                        <div class="cart-item-name">{{ICartItem.productName}}</div>
+                        <div class="cart-item-name" [innerHTML]="ICartItem.productName | marker : searchString"></div>
                         <div class="cart-item-description">Amount: {{ICartItem.quantity}}</div>
                     </div>
                     <div class="cart-item-list-action" *ngIf="!isOrder">

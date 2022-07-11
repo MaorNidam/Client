@@ -1,5 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataView } from 'primeng/dataview';
 import { Subscription } from 'rxjs';
 import { ICartItem } from 'src/app/models/ICartItems';
 import { CartItemsService } from 'src/app/services/cart-items.service';
@@ -23,7 +24,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.cartItemsService.followCartItemsSubject().subscribe((newItems) => {
-      if (newItems){
+      if (newItems) {
         this.cartItems = newItems;
       }
     })
@@ -33,7 +34,9 @@ export class CartComponent implements OnInit, OnDestroy {
   isModalShown: boolean = false;
   cartItemToEdit: ICartItem;
   cartItems: ICartItem[] = [];
-  subscription : Subscription;
+  subscription: Subscription;
+  searchString: string;
+  @ViewChild('dv') dataView: DataView;
 
   handleDelete = (cartItemId: number) => {
     let cartId = this.cartsService.getCart().id;
@@ -52,5 +55,12 @@ export class CartComponent implements OnInit, OnDestroy {
 
   handlePayment = () => {
     this.router.navigate(['order']);
+  }
+
+  handleSearch = (searchInputValue: string) => {
+    this.dataView.filter(searchInputValue);
+    if (this.isOrder) {
+      this.searchString = searchInputValue;
+    }
   }
 }
