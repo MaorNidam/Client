@@ -41,12 +41,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.productsService.getAllProducts();
     let categorySubscription = this.categoriesService.followCategoriesArraySubject().subscribe((newCategoryArray) => {
       this.categories = [...newCategoryArray];
+      // manually add the "All" category, since it doesn't exist in the data base.
       this.categories.unshift({ id: 0, name: "All" });
     });
 
     let activeSubscription = this.categoriesService.followActiveCategorySubject().subscribe((newCategory) => {
       this.activeCategory = newCategory;
       if (this.dataView) {
+        // The DataView component comes with a built in paginator, this line returns to the first page when category changed.
         this.dataView.first = 0;
       }
     })
@@ -59,9 +61,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   handleCategoryChange = (event: any) => {
+    //Tells the search input that the category was changed.
     this.categoriesService.setActiveCategory(event.index);
+
+    //Finds which category was selected.
     let selectedCategoryValue = event.originalEvent.target.innerText;
     let selectedCategory = this.categories.find((category) => { return category.name == selectedCategoryValue });
+
     if (selectedCategory.name == "All") {
       this.productsService.getAllProducts();
     }

@@ -54,5 +54,9 @@ export class RegisterPersonalInfoComponent implements OnInit {
     if (lastSavedRegister) {
       this.usersService.registerUser = JSON.parse(lastSavedRegister);
     }
+    else {
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Error', detail: 'Missing account information, please try again.' });
+      this.router.navigate(['home/register/account']);
+    }
   }
 }

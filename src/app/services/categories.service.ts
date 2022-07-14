@@ -13,8 +13,8 @@ export class CategoriesService {
    }
 
   private categoriesArray : ICategory[] = [];
-  activeCategorySubject = new BehaviorSubject(0);
-  categoriesArraySubject = new BehaviorSubject([]);
+  private activeCategorySubject = new BehaviorSubject(0);
+  private categoriesArraySubject = new BehaviorSubject([]);
 
   getAllCategories = () => {
     this.http.get<ICategory[]>('http://localhost:3001/categories').subscribe((categoriesResponse) => {

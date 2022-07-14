@@ -19,11 +19,6 @@ export class UserService {
     private cartService: CartsService,
     private messageService: MessageService
   ) {
-    let userJson = sessionStorage.getItem("userData");
-    if (userJson) {
-      this.currentUser = JSON.parse(userJson);
-      this.currentUserSubject.next(this.currentUser);
-    }
   }
 
   private currentUser?: IUser;

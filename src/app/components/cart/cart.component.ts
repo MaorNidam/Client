@@ -30,7 +30,9 @@ export class CartComponent implements OnInit, OnDestroy {
     })
   }
 
+  //isOrder exists to check if the cart was called from the order component or store component.
   @Input() isOrder: boolean;
+
   isModalShown: boolean = false;
   cartItemToEdit: ICartItem;
   cartItems: ICartItem[] = [];
@@ -58,8 +60,10 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   handleSearch = (searchInputValue: string) => {
+    //Access the built in search input, and filters according to the search value.
     this.dataView.filter(searchInputValue);
     if (this.isOrder) {
+      //If the user did the search from the order component, this searchString value goes to the marker pipe.
       this.searchString = searchInputValue;
     }
   }

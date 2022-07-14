@@ -27,9 +27,6 @@ export class RegisterAccountComponent implements OnInit {
       verifyPassword: ["", [Validators.required]],
     }, {
       validator: Validators.compose([this.passwordMatchValidator]),
-      //WHY IS THIS BUGGY?!?!?!
-      // asyncValidators: null,
-      // updateOn: 'blur'
     });
   }
 
@@ -42,6 +39,7 @@ export class RegisterAccountComponent implements OnInit {
         email: this.accountForm.get(['email']).value,
         password: this.accountForm.get(['password']).value
       }
+      //Saves the data in the session storage to prevent refresh issues at the next register step.
       sessionStorage.setItem("register", JSON.stringify(this.usersService.registerUser));
       this.router.navigate(['home/register/personal']);
     }

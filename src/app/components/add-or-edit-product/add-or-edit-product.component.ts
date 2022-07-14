@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory';
@@ -35,14 +35,15 @@ export class AddOrEditProductComponent implements OnInit, OnDestroy {
     })
     
     this.categoriesSubscription = this.categoriesService.followCategoriesArraySubject().subscribe((newCategoryArray) => {
-      this.categories = [...newCategoryArray];
+      this.categories = newCategoryArray;
     });
 
+    //Start following the product to edit subject, set the values to the form if a product was choosen.
     this.productSubscription = this.productsService.followProductToEditSubject().subscribe((newProduct) => {
-      console.log("product subscribe", newProduct);
-      
       if (newProduct != null) {
+        // resets the form to prevent old values.
         this.productForm.reset();
+
         this.selectedProduct = newProduct;
         this.productForm.setValue({
           name: this.selectedProduct.name,
@@ -65,6 +66,7 @@ export class AddOrEditProductComponent implements OnInit, OnDestroy {
 
   handleSubmit = () => {
     let productRequest = {
+      // id will exist only if the admin is editing a product.
       id: this.selectedProduct?.id,
       name: this.productForm.controls['name'].value,
       price: this.productForm.controls['price'].value,

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../models/IUser';
 import { CartItemsService } from './cart-items.service';
 import { CartsService } from './carts.service';
 import { CategoriesService } from './categories.service';
@@ -20,10 +19,19 @@ export class StateService {
     private cartsService: CartsService,
     private cartItemsService: CartItemsService,
   ) {
+    // Get all the relevant information on startup.
     this.productsService.getAllProducts();
     this.ordersService.getOrdersAmount();
     this.categoriesService.getAllCategories();
 
+    //get the user info from the session storage.
+    let userJson = sessionStorage.getItem("userData");
+    if (userJson) {
+      let currentUser = JSON.parse(userJson);
+      this.usersService.setCurrentUser(currentUser);
+    }
+
+    //this subscriptions makes sure that the current user and cart will stay updated when the user refreshes the page.
     this.usersService.followCurrentUser().subscribe((newUser) => {
       if (newUser && newUser.role == 'user') {
         this.cartsService.getLastCart();
@@ -51,7 +59,9 @@ export class StateService {
     })
   }
 
+  //Tells the search input in the header, if the user is at the store component.
   isStore: boolean = false;
+
   cities: any[] = ['Akko', 'Afula', 'Al Buţayḩah', 'Al Khushnīyah', 'Ashdod', 'Ashqelon', 'Bat Yam', 'Beersheba', 'Bené Beraq',
     'Bet Shemesh', 'Dimona', 'Eilat', 'El‘ad', 'Eṭ Ṭaiyiba', 'Fīq', 'Givatayim', 'Hadera', 'Haifa', 'Herẕliyya', 'Hod HaSharon',
     'Holon', 'Jerusalem', 'Karmiel', 'Kefar Sava', 'Lod', 'Ma‘alot Tarshīḥā', 'Modi‘in Makkabbim Re‘ut', 'Nahariyya', 'Nazareth',

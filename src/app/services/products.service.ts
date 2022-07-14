@@ -21,6 +21,8 @@ export class ProductsService {
     this.http.get<IProduct[]>(this.baseUrl).subscribe((productsResponse) => {
       this.productsArray = productsResponse;
       this.amountOfProducts = this.productsArray.length;
+
+      //this makes sure that the selected category will be "All" when getAllProducts was invoked (for example, when a product was added).
       this.categoriesService.setActiveCategory(0);
     }, (e) => {
       console.log(e);

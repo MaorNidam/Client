@@ -29,11 +29,15 @@ export class AddCartItemModalComponent implements OnInit, OnDestroy {
       this.cartItems = newItems;
     });
 
+    // if cartItemToEdit exists from the creation of the modal, then the modal was invoked from the cart.
     if (this.cartItemToEdit) {
       this.amountToAdd = this.cartItemToEdit.quantity;
       this.isEdit = true;
     }
+
+    // if productToAdd exists from the creation of the modal, then the modal was invoked from the products container.
     if (this.productToAdd) {
+      //Search the cart items array, to check if the item was already added. If it was added, the modal turns into edit cart item.
       this.cartItemToEdit = this.cartItems.find((cartItem) => { return cartItem.productId == this.productToAdd.id });
       if (!this.cartItemToEdit) {
         this.convertProductToCartItem();
@@ -47,11 +51,12 @@ export class AddCartItemModalComponent implements OnInit, OnDestroy {
 
   @Input() isModalShown: Boolean = false;
   @Output() isModalShownChange = new EventEmitter();
+
   @Input() productToAdd: IProduct;
   @Input() cartItemToEdit: ICartItem;
   amountToAdd = 0;
   cartItems: ICartItem[] = [];
-  subscription : Subscription;
+  subscription: Subscription;
 
   isEdit: boolean = false;
   private serverCartItem: IServerCartItem;
@@ -68,12 +73,16 @@ export class AddCartItemModalComponent implements OnInit, OnDestroy {
       productId: this.cartItemToEdit.productId,
       id: this.cartItemToEdit.id
     }
+    // If there were no changes, closes the modal without sending a request to the server.
     if (this.cartItemToEdit.quantity == this.amountToAdd) {
       this.handleModalHide();
       return;
     }
+
     if (this.isEdit) {
+      //handles the request in edit mode.
       if (this.serverCartItem.quantity == 0) {
+        //if user choose 0 amount, deletes the cart item from the server.
         this.cartItemsService.deleteCartItem(this.serverCartItem.id, this.serverCartItem.cartId);
       }
       else {
@@ -81,12 +90,7 @@ export class AddCartItemModalComponent implements OnInit, OnDestroy {
       }
     }
     else {
-      if (this.serverCartItem.quantity == 0) {
-        this.messageService.add({ key: 'appToast', severity: 'alert', summary: 'Amount', detail: 'No amount was choosen.' });
-      }
-      else {
-        this.cartItemsService.addCartItem(this.serverCartItem);
-      }
+      this.cartItemsService.addCartItem(this.serverCartItem);
     }
     this.handleModalHide();
   }
