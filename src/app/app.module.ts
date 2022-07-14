@@ -39,6 +39,7 @@ import { AddOrEditProductComponent } from './components/add-or-edit-product/add-
 import { MessageService } from 'primeng/api';
 import { UserService } from './services/user.service';
 import { MarkerPipe } from './pipes/marker.pipe';
+import { ApiDocsComponent } from './components/api-docs/api-docs.component';
 
 
 
@@ -58,7 +59,8 @@ import { MarkerPipe } from './pipes/marker.pipe';
     ProductsComponent,
     AddCartItemModalComponent,
     AddOrEditProductComponent,
-    MarkerPipe
+    MarkerPipe,
+    ApiDocsComponent,
   ],
   imports: [
     BrowserModule,

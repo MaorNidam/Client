@@ -6,3 +6,11 @@
     margin-top: 0;
     margin-bottom: 0;
 }
+
+.nav-link {
+    padding-right: 10px;
+}
+
+.navbar-nav {
+    flex-direction: row;
+}

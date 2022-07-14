@@ -5,9 +5,9 @@
       <li class="nav-item" *ngIf="currentUser">
         <a class="nav-link" routerLink="" (click)="handleLogout()">Log Out</a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="http:localhost:3001/api-docs">Documentation</a>
-      </li> -->
+      <li class="nav-item" *ngIf="currentUser?.role == 'admin'">
+        <a class="nav-link" routerLink="/docs">Documentation</a>
+      </li>
       <!-- <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
           >Disabled</a

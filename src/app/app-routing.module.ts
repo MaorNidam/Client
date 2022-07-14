@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ApiDocsComponent } from './components/api-docs/api-docs.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrderComponent } from './components/order/order.component';
 import { RegisterAccountComponent } from './components/register-account/register-account.component';
@@ -52,6 +53,11 @@ const routes: Routes = [
     path: 'order',
     component: OrderComponent,
     canActivate: [LoginGuard, OrderGuard]
+  },
+  {
+    path: 'docs',
+    component: ApiDocsComponent,
+    canActivate : [LoginGuard]
   },
   {
     path: '',
