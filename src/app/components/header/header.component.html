@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="">Online Store</a>
+    <a class="navbar-brand" (click)="handleHome()">Online Store</a>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item" *ngIf="currentUser">
         <a class="nav-link" routerLink="" (click)="handleLogout()">Log Out</a>

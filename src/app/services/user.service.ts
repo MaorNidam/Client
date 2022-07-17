@@ -5,8 +5,6 @@ import { IRegister } from '../models/IRegister';
 import { IUser } from '../models/IUser';
 import { CartsService } from './carts.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { OrdersService } from './orders.service';
-import { CartItemsService } from './cart-items.service';
 import { MessageService } from 'primeng/api';
 
 @Injectable({

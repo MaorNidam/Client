@@ -55,6 +55,7 @@ export class RegisterAccountComponent implements OnInit {
     }
   }
 
+  //Async validator, that checkes in the database if the e-mail or user Id is already in use.
   isExist = (control: UntypedFormControl): Observable<ValidationErrors | null> => {
     let userId: string = "";
     let email: string = "";

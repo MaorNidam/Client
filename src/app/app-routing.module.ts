@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ApiDocsComponent } from './components/api-docs/api-docs.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrderComponent } from './components/order/order.component';
+import { Page404Component } from './components/page404/page404.component';
 import { RegisterAccountComponent } from './components/register-account/register-account.component';
 import { RegisterPersonalInfoComponent } from './components/register-personal-info/register-personal-info.component';
 import { RegisterComponent } from './components/register/register.component';
 import { StartingPageComponent } from './components/starting-page/starting-page.component';
 import { StoreComponent } from './components/store/store.component';
+import { AdminGuard } from './guards/admin.guard';
 import { LoginGuard } from './guards/login.guard';
 import { OrderGuard } from './guards/order.guard';
 
@@ -38,10 +40,6 @@ const routes: Routes = [
             pathMatch: 'full'
           }
         ]
-      }, {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full',
       }
     ],
   },
@@ -57,12 +55,16 @@ const routes: Routes = [
   {
     path: 'docs',
     component: ApiDocsComponent,
-    canActivate : [LoginGuard]
+    canActivate : [LoginGuard, AdminGuard]
   },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },
+  {
+    path: '**',
+    component: Page404Component
   }
 ];
 

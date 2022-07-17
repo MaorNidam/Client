@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable, Subscription, tap } from 'rxjs';
 import { IUser } from 'src/app/models/IUser';
 import { CategoriesService } from 'src/app/services/categories.service';
@@ -15,11 +16,12 @@ import { UserService } from 'src/app/services/user.service';
 export class HeaderComponent implements OnInit,OnDestroy {
 
   constructor(
-    private usersService: UserService,
-    private productsService: ProductsService,
-    private categoriesService: CategoriesService,
+    public usersService: UserService,
+    public productsService: ProductsService,
+    public categoriesService: CategoriesService,
     public stateService: StateService,
-    private formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public router: Router
   ) {
   }
   ngOnDestroy(): void {
@@ -63,6 +65,15 @@ export class HeaderComponent implements OnInit,OnDestroy {
   handleLogout = () => {
     this.usersService.setCurrentUser(null);
     sessionStorage.removeItem("userData");
+  }
+
+  handleHome = () => {
+    if (this.currentUser) {
+      this.router.navigate(['home']);
+    }
+    else {
+      this.router.navigate(['/home/login']);
+    }
   }
 
 }

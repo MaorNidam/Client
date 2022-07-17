@@ -27,8 +27,8 @@
             </div>
         </ng-template>
     </p-dataView>
-    <app-add-cart-item-modal *ngIf="isModalShown" [(isModalShown)]="isModalShown" [cartItemToEdit]="cartItemToEdit">
-    </app-add-cart-item-modal>
+    <app-add-or-edit-cart-item-modal *ngIf="isModalShown" [(isModalShown)]="isModalShown" [cartItemToEdit]="cartItemToEdit">
+    </app-add-or-edit-cart-item-modal>
 
     <span class="p-buttonset footer-buttons-set" *ngIf="!isOrder">
         <button pButton pRipple label="Clear Cart" class="footer-button" (click)="handleClearCart()"

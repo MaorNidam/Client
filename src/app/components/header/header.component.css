@@ -14,3 +14,7 @@
 .navbar-nav {
     flex-direction: row;
 }
+
+a {
+    cursor: pointer;
+}

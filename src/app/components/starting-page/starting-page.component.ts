@@ -37,6 +37,19 @@ export class StartingPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     let userSubscription = this.usersService.followCurrentUser().subscribe((newUser) => {
       this.currentUser = newUser;
+
+      let requestUrl = this.router.url;
+      if(!this.currentUser) {
+        if (requestUrl == '/home') {
+          this.router.navigate(['/home/login'])
+        }
+        else {
+          this.router.navigate([requestUrl]);
+        }
+      }
+      else {
+        this.router.navigate(['/home']);
+      }
     })
 
     let cartSubscription = this.cartsService.followCartSubject().subscribe((newCart) => {
@@ -49,12 +62,6 @@ export class StartingPageComponent implements OnInit, OnDestroy {
       }
     })
 
-    if(!this.currentUser) {
-      this.router.navigate(['/home/login']);
-    }
-    else {
-      this.router.navigate(['/home']);
-    }
 
     this.subscriptionsArray.push(userSubscription, cartSubscription, cartItemsSub);
   }

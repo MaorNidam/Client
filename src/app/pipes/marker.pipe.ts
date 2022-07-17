@@ -17,7 +17,7 @@ export class MarkerPipe implements PipeTransform {
       return value;
     }
 
-    return value.replace(regex,m => `<span class='highlight'>${m}</span>`);
+    return value.replace(regex,currentChar => `<span class='highlight'>${currentChar}</span>`);
   }
 
 }

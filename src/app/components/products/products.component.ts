@@ -36,7 +36,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
   subscriptionsArray: Subscription[] = [];
   @ViewChild('dataView') dataView : DataView;
 
-
   ngOnInit(): void {
     this.productsService.getAllProducts();
     let categorySubscription = this.categoriesService.followCategoriesArraySubject().subscribe((newCategoryArray) => {
@@ -48,7 +47,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     let activeSubscription = this.categoriesService.followActiveCategorySubject().subscribe((newCategory) => {
       this.activeCategory = newCategory;
       if (this.dataView) {
-        // The DataView component comes with a built in paginator, this line returns to the first page when category changed.
+        // The DataView component comes with a built in paginator, this line returns to the first page when the category was changed.
         this.dataView.first = 0;
       }
     })

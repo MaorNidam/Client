@@ -23,14 +23,18 @@ export class OrderGuard implements CanActivate {
     this.userService.followCurrentUser().subscribe((newUser) => {
       currentUser = newUser;
     })
-
+    
+    //Deny access to admins.
     if (currentUser?.role == "admin") {
       this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Unauthorized', detail: 'Admins are not allowed in here.' })
       this.router.navigate(['/home']);
       return false;
     }
 
+    //Deny access to users that didn't fill the cart.
+    //Works with Observable<boolean> in order to update according the the cart-items.
     return this.cartItemsService.followCartItemsSubject().pipe(
+      
       filter(newItems => newItems != null),
       map((newItems) => {
         if (newItems.length > 0) {

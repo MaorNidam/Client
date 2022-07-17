@@ -30,7 +30,6 @@ import { ProductsComponent } from './components/products/products.component';
 import { TabViewModule } from 'primeng/tabview';
 import { DialogModule } from 'primeng/dialog';
 import {InputNumberModule} from 'primeng/inputnumber';
-import { AddCartItemModalComponent } from './components/add-cart-item-modal/add-cart-item-modal.component';
 import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
 import {MessagesModule} from 'primeng/messages';
@@ -39,6 +38,8 @@ import { AddOrEditProductComponent } from './components/add-or-edit-product/add-
 import { MessageService } from 'primeng/api';
 import { MarkerPipe } from './pipes/marker.pipe';
 import { ApiDocsComponent } from './components/api-docs/api-docs.component';
+import { AddOrEditCartItemModalComponent } from './components/add-or-edit-cart-item-modal/add-or-edit-cart-item-modal.component';
+import { Page404Component } from './components/page404/page404.component';
 
 
 
@@ -56,10 +57,11 @@ import { ApiDocsComponent } from './components/api-docs/api-docs.component';
     RegisterPersonalInfoComponent,
     CartComponent,
     ProductsComponent,
-    AddCartItemModalComponent,
     AddOrEditProductComponent,
     MarkerPipe,
     ApiDocsComponent,
+    AddOrEditCartItemModalComponent,
+    Page404Component,
   ],
   imports: [
     BrowserModule,

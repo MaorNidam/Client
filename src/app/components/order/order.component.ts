@@ -59,6 +59,8 @@ export class OrderComponent implements OnInit {
     }
     this.ordersService.addOrder(orderRequest).subscribe((ordersResponse) => {
       this.messageService.add({ key: 'orderToast', sticky: true, severity: 'success', summary: 'Order Confirmed', detail: 'Download receipt?' });
+      //Update the amount of orders.
+      this.ordersService.getOrdersAmount();
     }, (e) => {
       this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
