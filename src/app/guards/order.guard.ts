@@ -16,9 +16,7 @@ export class OrderGuard implements CanActivate {
     private messageService: MessageService,
     private router: Router
   ) { }
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let currentUser: IUser;
     this.userService.followCurrentUser().subscribe((newUser) => {
       currentUser = newUser;

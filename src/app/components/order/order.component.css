@@ -34,3 +34,26 @@ app-cart {
     padding: 0;
 }
 
+@media screen and (max-width: 960px) {
+    .cart {
+        display: inline-flex;
+        width: 95vw;
+        height: fit-content;
+        margin-bottom: 10px;
+    } 
+    
+    .order-form {
+        display: inline-flex;
+        width: 95vw;
+        height: 85vh;
+        padding: 10px;
+        overflow: auto;
+        margin-bottom: 10px;
+    }
+
+    .order-container {
+        display: block;
+        margin: 10px;
+        /* justify-content: space-evenly; */
+    }
+}

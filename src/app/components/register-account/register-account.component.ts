@@ -8,7 +8,8 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-register-account',
   templateUrl: './register-account.component.html',
-  styleUrls: ['./register-account.component.css']
+  styleUrls: ['./register-account.component.css'],
+  providers: [MessageService]
 })
 export class RegisterAccountComponent implements OnInit {
 

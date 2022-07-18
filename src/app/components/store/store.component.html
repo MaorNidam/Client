@@ -3,8 +3,8 @@
         <app-cart *ngIf="currentUser.role == 'user'" ></app-cart>
         <app-add-or-edit-product *ngIf="currentUser.role == 'admin'"></app-add-or-edit-product>
     </div>
-    <button *ngIf="currentUser.role == 'user'" pButton pRipple type="button" icon="pi pi-shopping-cart" class="p-button-rounded" (click)="isCartDisplay = !isCartDisplay"></button>
-    <button *ngIf="currentUser.role == 'admin'" pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded" (click)="isCartDisplay = !isCartDisplay"></button>
+    <button *ngIf="currentUser.role == 'user'" pButton pRipple type="button" icon="pi pi-shopping-cart" class="p-button-rounded show-cart-button" (click)="isCartDisplay = !isCartDisplay"></button>
+    <button *ngIf="currentUser.role == 'admin'" pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded show-cart-button" (click)="isCartDisplay = !isCartDisplay"></button>
     <div class="products-container card">
         <app-products></app-products>
     </div>

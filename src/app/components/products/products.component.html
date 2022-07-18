@@ -1,5 +1,5 @@
 <p-tabView (onChange)="handleCategoryChange($event)" [(activeIndex)]="activeCategory" [scrollable]="true">
-    <p-tabPanel *ngFor="let category of categories;" [header]="category.name">
+    <p-tabPanel #tabPanel *ngFor="let category of categories;" [header]="category.name">
     </p-tabPanel>
 </p-tabView>
 <div class="product-container">

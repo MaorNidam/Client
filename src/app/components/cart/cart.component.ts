@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { DataView } from 'primeng/dataview';
 import { Subscription } from 'rxjs';
 import { ICartItem } from 'src/app/models/ICartItems';
@@ -16,6 +17,7 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     public cartItemsService: CartItemsService,
     public cartsService: CartsService,
+    public messageService: MessageService,
     public router: Router
   ) { }
   ngOnDestroy(): void {
@@ -49,8 +51,9 @@ export class CartComponent implements OnInit, OnDestroy {
     this.isModalShown = true;
     this.cartItemToEdit = cartItem;
   }
-
+  
   handleClearCart = () => {
+    this.messageService.clear('c');
     let cartId = this.cartsService.getCart().id;
     this.cartItemsService.deleteAllItemsFromCart(cartId);
   }
@@ -67,4 +70,17 @@ export class CartComponent implements OnInit, OnDestroy {
       this.searchString = searchInputValue;
     }
   }
+
+  showConfirm() {
+    this.messageService.clear();
+    this.messageService.add({key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
+}
+
+// onConfirm() {
+//   this.onClearCartItemsClicked();
+// }
+
+onReject() {
+  this.messageService.clear('c');
+}
 }

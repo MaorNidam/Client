@@ -71,3 +71,22 @@ img {
     float: right;
 }
 
+.clearModalButton {
+    min-width: 10rem;
+    margin-right: .5rem;
+  }
+  
+  @media screen and (max-width: 960px) {
+    .clearModalButton {
+        width: 100%;
+        margin-bottom: .5rem;
+    }
+  }
+  
+  .clearModalButtonDiv{
+    display: flex;
+  }
+
+  .p-text-center {
+    text-align: center;
+  }

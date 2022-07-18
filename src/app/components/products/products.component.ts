@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataView } from 'primeng/dataview';
+import { TabPanel } from 'primeng/tabview';
 import { Subscription } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory';
 import { IProduct } from 'src/app/models/IProduct';
@@ -35,6 +36,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   categories: ICategory[] = [];
   subscriptionsArray: Subscription[] = [];
   @ViewChild('dataView') dataView : DataView;
+  @ViewChild('tabPanel') tabPanel : TabPanel;
 
   ngOnInit(): void {
     this.productsService.getAllProducts();
@@ -49,6 +51,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
       if (this.dataView) {
         // The DataView component comes with a built in paginator, this line returns to the first page when the category was changed.
         this.dataView.first = 0;
+        console.log(this.tabPanel);
+        
       }
     })
 
