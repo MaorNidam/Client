@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApiDocsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit(): void {
   }
