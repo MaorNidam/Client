@@ -86,5 +86,12 @@ export class AddOrEditProductComponent implements OnInit, OnDestroy {
     this.productForm.reset();
     this.isEdit = false;
     this.productsService.setProductToEdit(null);
+    this.clearHeaderSearchInput();
+  }
+
+  clearHeaderSearchInput = () => {
+    //Change active category to trigger search input clean.
+    this.categoriesService.setActiveCategory(1);
+    this.categoriesService.setActiveCategory(0);
   }
 }

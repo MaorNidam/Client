@@ -53,7 +53,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
   
   handleClearCart = () => {
-    this.messageService.clear('c');
+    this.messageService.clear('cartToast');
     let cartId = this.cartsService.getCart().id;
     this.cartItemsService.deleteAllItemsFromCart(cartId);
   }
@@ -73,7 +73,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   showConfirm() {
     this.messageService.clear();
-    this.messageService.add({key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
+    this.messageService.add({key: 'cartToast', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
 }
 
 // onConfirm() {
@@ -81,6 +81,6 @@ export class CartComponent implements OnInit, OnDestroy {
 // }
 
 onReject() {
-  this.messageService.clear('c');
+  this.messageService.clear('cartToast');
 }
 }

@@ -62,21 +62,25 @@ export class OrderComponent implements OnInit {
       //Update the amount of orders.
       this.ordersService.getOrdersAmount();
     }, (e) => {
-      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
+      this.messageService.add({ key: 'errorToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
       console.log(e);
     });
   }
-
+  
   onCloseToast = () => {
     this.cartsService.openCart();
     this.ordersService.getLastOrderDate();
     this.router.navigate(['home']);
   }
-
+  
   onGetReceipt = () => {
     let cartId = this.cartsService.getCart().id;
     this.ordersService.getReceipt(cartId).subscribe(blob => {
       saveAs(blob, cartId + '.txt');
+    }, (e) => {
+      this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
+      console.log(e);
+      
     });
   }
 

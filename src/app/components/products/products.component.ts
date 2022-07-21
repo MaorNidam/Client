@@ -36,11 +36,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
   categories: ICategory[] = [];
   subscriptionsArray: Subscription[] = [];
   @ViewChild('dataView') dataView : DataView;
-  @ViewChild('tabPanel') tabPanel : TabPanel;
 
   ngOnInit(): void {
     this.productsService.getAllProducts();
     let categorySubscription = this.categoriesService.followCategoriesArraySubject().subscribe((newCategoryArray) => {
+      // Spread operator fixes error on startup.
       this.categories = [...newCategoryArray];
       // manually add the "All" category, since it doesn't exist in the data base.
       this.categories.unshift({ id: 0, name: "All" });
@@ -51,8 +51,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
       if (this.dataView) {
         // The DataView component comes with a built in paginator, this line returns to the first page when the category was changed.
         this.dataView.first = 0;
-        console.log(this.tabPanel);
-        
       }
     })
 

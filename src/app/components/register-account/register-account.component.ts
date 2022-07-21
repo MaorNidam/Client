@@ -78,7 +78,7 @@ export class RegisterAccountComponent implements OnInit {
       ),
       catchError((e) => {
         console.log(e);
-        this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
+        this.messageService.add({ key: 'errorToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });
         return of({ "serverError": true });
       })
     )

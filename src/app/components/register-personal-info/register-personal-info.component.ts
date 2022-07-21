@@ -41,7 +41,7 @@ export class RegisterPersonalInfoComponent implements OnInit {
       this.usersService.registerUser.street = this.personalInfoForm.get(['street']).value;
       
       this.usersService.register(this.usersService.registerUser);
-      this.router.navigate(['home']);
+      this.router.navigate(['home/login']);
     }
     else {
       this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Error', detail: 'Something went wrong, please try again later.' });

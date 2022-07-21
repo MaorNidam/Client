@@ -13,8 +13,8 @@
                         <div class="cart-item-name" [innerHTML]="ICartItem.productName | marker : searchString"></div>
                         <div class="cart-item-description">Amount: {{ICartItem.quantity}}</div>
                     </div>
-                    <div class="cart-item-list-action" *ngIf="!isOrder">
-                        <span class="p-buttonset ">
+                    <div class="cart-item-list-action" >
+                        <span class="p-buttonset " *ngIf="!isOrder">
                             <button pButton pRipple class="cart-button p-button-text" icon="pi pi-pencil"
                                 (click)="handleEdit(ICartItem)"></button>
                             <button pButton pRipple class="cart-button p-button-text" icon="pi pi-trash"
@@ -43,7 +43,7 @@
     </span>
 </div>
 
-<p-toast position="top-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+<p-toast position="top-center" key="cartToast" (onClose)="onReject()" [baseZIndex]="5000">
     <ng-template let-message pTemplate="message">
         <div class="p-flex p-flex-column" style="flex: 1">
             <div class="p-text-center">

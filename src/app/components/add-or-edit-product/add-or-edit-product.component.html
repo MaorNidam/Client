@@ -10,7 +10,7 @@
     <small *ngIf="productForm.controls['name'].hasError('maxlength') && productForm.controls['name'].dirty"
         class="p-error block">Name is too long.</small>
 
-    <div>Select category*: </div>
+    <div>Select category:* </div>
     <p-dropdown styleClass="product-input" [options]="categories" optionLabel="name" optionValue="id"
         formControlName="categoryId" placeholder="Select a Category" *ngIf="categories.length > 0">
     </p-dropdown>

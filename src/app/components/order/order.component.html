@@ -50,6 +50,8 @@
         </form>
     </div>
 
+    <p-toast key="errorToast" position="top-center"></p-toast>
+
     <p-toast position="center" key="orderToast" (onClose)="onCloseToast()" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">
             <div class="flex flex-column" style="flex: 1">
