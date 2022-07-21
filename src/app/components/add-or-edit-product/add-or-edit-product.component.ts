@@ -6,6 +6,7 @@ import { ICategory } from 'src/app/models/ICategory';
 import { IProduct } from 'src/app/models/IProduct';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-add-or-edit-product',
@@ -18,6 +19,7 @@ export class AddOrEditProductComponent implements OnInit, OnDestroy {
     public formBuilder: UntypedFormBuilder,
     public categoriesService: CategoriesService,
     public productsService: ProductsService,
+    public stateService: StateService,
     public messageService: MessageService
   ) { }
   ngOnDestroy(): void {
@@ -86,12 +88,7 @@ export class AddOrEditProductComponent implements OnInit, OnDestroy {
     this.productForm.reset();
     this.isEdit = false;
     this.productsService.setProductToEdit(null);
-    this.clearHeaderSearchInput();
+    this.stateService.clearSearchInput()
   }
 
-  clearHeaderSearchInput = () => {
-    //Change active category to trigger search input clean.
-    this.categoriesService.setActiveCategory(1);
-    this.categoriesService.setActiveCategory(0);
-  }
 }

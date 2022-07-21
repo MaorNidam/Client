@@ -76,4 +76,8 @@ export class HeaderComponent implements OnInit,OnDestroy {
     }
   }
 
+  clearSearchInput = () => {
+    this.searchControl.setValue('');
+  }
+
 }

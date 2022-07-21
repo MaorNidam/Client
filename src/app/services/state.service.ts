@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HeaderComponent } from '../components/header/header.component';
 import { CartItemsService } from './cart-items.service';
 import { CartsService } from './carts.service';
 import { CategoriesService } from './categories.service';
@@ -57,6 +58,11 @@ export class StateService {
         this.cartItemsService.setCartItems(null);
       }
     })
+  }
+
+  clearSearchInput = () => {
+    this.categoriesService.setActiveCategory(1);
+    this.categoriesService.setActiveCategory(0);
   }
 
   //Tells the search input in the header, if the user is at the store component.

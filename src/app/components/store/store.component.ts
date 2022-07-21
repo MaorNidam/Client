@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ICart } from 'src/app/models/ICart';
 import { IUser } from 'src/app/models/IUser';
@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.css']
 })
-export class StoreComponent implements OnInit,OnDestroy {
+export class StoreComponent implements OnInit,OnDestroy,AfterViewInit {
 
   constructor(
     public categoriesService: CategoriesService,
@@ -20,19 +20,22 @@ export class StoreComponent implements OnInit,OnDestroy {
     public usersService: UserService,
     public cartsService: CartsService
   ) { }
+  ngAfterViewInit(): void {
+    this.stateService.clearSearchInput();
+  }
 
   ngOnInit(): void {
     this.stateService.isStore = true;
     let userSubscription = this.usersService.followCurrentUser().subscribe((newUser) => {
       this.currentUser = newUser;
     });
-
+    
     let cartSubscription = this.cartsService.followCartSubject().subscribe((newCart) => {
       this.currentCart = newCart; 
     });
     
-
     this.subscriptions.push(userSubscription, cartSubscription);
+
   }
 
   currentUser : IUser;
