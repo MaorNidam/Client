@@ -80,6 +80,10 @@ export class AddOrEditCartItemModalComponent implements OnInit,OnDestroy {
         this.messageService.add({key: 'appToast', severity:'error', summary: 'Invalid amount.', detail: 'Please enter a valid amount to add.'})
         return;
       }
+      if (this.amountToAdd < 0 || this.amountToAdd > 50) {
+        this.messageService.add({key: 'appToast', severity:'error', summary: 'Invalid amount.', detail: 'Please select an amount from 0 to 50.'})
+        return;
+      }
       this.serverCartItem = {
         cartId: this.cartsService.getCart().id,
         quantity: this.amountToAdd,

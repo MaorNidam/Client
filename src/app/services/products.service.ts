@@ -41,7 +41,12 @@ export class ProductsService {
 
   searchProduct = (searchString: string) => {
     this.http.get<IProduct[]>(this.baseUrl + "search/" + searchString).subscribe((productsResponse) => {
-      this.productsArray = productsResponse;
+      if (!productsResponse) {
+        this.getAllProducts();
+      }
+      else {
+        this.productsArray = productsResponse;
+      }
     }, (e) => {
       console.log(e);
       this.messageService.add({ key: 'appToast', severity: 'error', summary: 'Server Error', detail: 'Something went wrong, please try again later.' });

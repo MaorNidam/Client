@@ -37,7 +37,7 @@ export class OrderComponent implements OnInit {
       city: [this.currentUserValue.city, [Validators.required]],
       street: ["", [Validators.required, Validators.maxLength(100)]],
       shippingDate: [null, [Validators.required]],
-      creditCard: [0, [Validators.required, Validators.pattern("^[0-9\-]+$")]],
+      creditCard: [null, [Validators.required, Validators.pattern("^[0-9\-]+$")]],
     });
   }
 

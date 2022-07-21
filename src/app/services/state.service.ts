@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HeaderComponent } from '../components/header/header.component';
 import { CartItemsService } from './cart-items.service';
 import { CartsService } from './carts.service';
 import { CategoriesService } from './categories.service';

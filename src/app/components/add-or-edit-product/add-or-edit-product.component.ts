@@ -30,8 +30,8 @@ export class AddOrEditProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Init form with null values, and the validators.
     this.productForm = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.maxLength(20)]],
-      price: [null, [Validators.required, Validators.min(0.001)]],
+      name: [null, [Validators.required, Validators.maxLength(20)], Validators.pattern("")],
+      price: [null, [Validators.required, Validators.min(0.001), Validators.max(10000)]],
       imgUrl: [null, [Validators.required, Validators.maxLength(350)]],
       categoryId: [null, [Validators.required]],
     })

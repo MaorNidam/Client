@@ -6,7 +6,7 @@
             currency:"ILS":"symbol"}} </div>
     </div>
     <ng-template pTemplate="footer">
-        <p-inputNumber class="modal-input" [(ngModel)]="amountToAdd" [showButtons]="true" mode="decimal" [min]=0>
+        <p-inputNumber class="modal-input" [(ngModel)]="amountToAdd" [showButtons]="true" mode="decimal" [min]=0 [max]=50>
         </p-inputNumber> <br>
         <button pButton pRipple [label]="isEdit? 'Update Cart' :'Add To Cart'" styleClass="modal-button"
             (click)="handleAddButton()"></button>

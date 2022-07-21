@@ -7,7 +7,7 @@
     <small *ngIf="accountForm.controls['id'].hasError('required') && accountForm.controls['id'].touched" id="id-help"
         class="p-error block">Id is required.</small>
     <small *ngIf="accountForm.controls['id'].hasError('pattern') && accountForm.controls['id'].dirty" id="id-help"
-        class="p-error block">Invalid Id.</small>
+        class="p-error block">Id must contain only numbers.</small>
     <small *ngIf="accountForm.controls['id'].hasError('isExist') && accountForm.controls['id'].dirty" id="id-help"
         class="p-error block">Id already registered.</small>
     <small *ngIf="accountForm.controls['id'].hasError('idLengthValidator') && accountForm.controls['id'].dirty" id="id-help"

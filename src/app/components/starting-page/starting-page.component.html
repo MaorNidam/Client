@@ -1,12 +1,14 @@
 <div class="card-container">
     <div class="account card home-card">
-        <p-button (click)="router.navigate(['/store'])" label="Start Shopping"
-            *ngIf="currentUser?.role == 'user' && (!cart || (cart && cartItems?.length == 0) )">
-        </p-button>
-        <p-button (click)="router.navigate(['/store'])" label="Resume Shopping"
-            *ngIf="currentUser?.role == 'user' && cart && cartItems?.length > 0"></p-button>
-        <p-button (click)="router.navigate(['/store'])" label="Go To Store" *ngIf="currentUser?.role == 'admin'">
-        </p-button>
+        <div class="go-to-store-buttons">
+            <p-button (click)="router.navigate(['/store'])" label="Start Shopping"
+                *ngIf="currentUser?.role == 'user' && (!cart || (cart && cartItems?.length == 0) )">
+            </p-button>
+            <p-button (click)="router.navigate(['/store'])" label="Resume Shopping"
+                *ngIf="currentUser?.role == 'user' && cart && cartItems?.length > 0"></p-button>
+            <p-button (click)="router.navigate(['/store'])" label="Go To Store" *ngIf="currentUser?.role == 'admin'">
+            </p-button>
+        </div>
         <div *ngIf="!currentUser">
             <router-outlet></router-outlet>
         </div>

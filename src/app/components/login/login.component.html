@@ -4,7 +4,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
         <div>Enter your e-mail address:*</div>
         <span class="p-float-label">
-            <input name="email" pInputText id="emailInput" type="text" formControlName="email" class="login-input" />
+            <input name="email" pInputText id="emailInput" type="text" formControlName="email"/>
             <label for="emailInput">E-Mail</label>
         </span>
         <small *ngIf="loginForm.get('email').hasError('email') && loginForm.get('email').dirty"
@@ -16,7 +16,7 @@
         <div>Enter your password:*</div>
         <span class="p-float-label">
             <p-password id="password" [toggleMask]="true" [feedback]="false" formControlName="password"
-                styleClass="p-password p-component p-inputwrapper p-input-icon-right login-input"></p-password>
+                styleClass="p-password p-component p-inputwrapper p-input-icon-right"></p-password>
             <label for="password">Password</label>
         </span>
         <small *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched"
