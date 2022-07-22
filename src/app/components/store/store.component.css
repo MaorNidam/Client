@@ -21,6 +21,7 @@ app-cart {
 }
 
 app-products {
+    height: 100%;
     overflow-y: auto;
 }
 

@@ -30,29 +30,26 @@ export class AddOrEditProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Init form with null values, and the validators.
     this.productForm = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.maxLength(20)], Validators.pattern("")],
+      name: [null, [Validators.required, Validators.maxLength(20)]],
       price: [null, [Validators.required, Validators.min(0.001), Validators.max(10000)]],
       imgUrl: [null, [Validators.required, Validators.maxLength(350)]],
       categoryId: [null, [Validators.required]],
     })
-    
+
     this.categoriesSubscription = this.categoriesService.followCategoriesArraySubject().subscribe((newCategoryArray) => {
       this.categories = newCategoryArray;
     });
+
 
     //Start following the product to edit subject, set the values to the form if a product was choosen.
     this.productSubscription = this.productsService.followProductToEditSubject().subscribe((newProduct) => {
       if (newProduct != null) {
         // resets the form to prevent old values.
         this.productForm.reset();
+        console.log(newProduct);
 
         this.selectedProduct = newProduct;
-        this.productForm.setValue({
-          name: this.selectedProduct.name,
-          price: this.selectedProduct.price,
-          imgUrl: this.selectedProduct.imgUrl,
-          categoryId: this.selectedProduct.categoryId
-        });
+        this.updateFromValues();
 
         this.isEdit = true;
       }
@@ -82,6 +79,15 @@ export class AddOrEditProductComponent implements OnInit, OnDestroy {
       this.productsService.addProduct(productRequest);
     }
     this.handleClear();
+  }
+
+  updateFromValues = () => {
+    this.productForm.setValue({
+      name: this.selectedProduct.name,
+      price: this.selectedProduct.price,
+      imgUrl: this.selectedProduct.imgUrl,
+      categoryId: this.selectedProduct.categoryId
+    });
   }
 
   handleClear = () => {
