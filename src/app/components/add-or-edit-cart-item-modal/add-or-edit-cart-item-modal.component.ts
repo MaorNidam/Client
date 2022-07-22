@@ -69,6 +69,11 @@ export class AddOrEditCartItemModalComponent implements OnInit,OnDestroy {
     isEdit: boolean = false;
     private serverCartItem: IServerCartItem;
   
+    validateAmountInput = (event) => {
+      console.log(event);
+      
+    }
+
     handleModalHide = () => {
       this.isModalShown = false;
       this.isModalShownChange.emit(this.isModalShown);

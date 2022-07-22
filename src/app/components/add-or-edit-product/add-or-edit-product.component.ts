@@ -25,6 +25,7 @@ export class AddOrEditProductComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.productSubscription.unsubscribe();
     this.categoriesSubscription.unsubscribe();
+    this.productsService.setProductToEdit(null);
   }
 
   ngOnInit(): void {
@@ -46,7 +47,6 @@ export class AddOrEditProductComponent implements OnInit, OnDestroy {
       if (newProduct != null) {
         // resets the form to prevent old values.
         this.productForm.reset();
-        console.log(newProduct);
 
         this.selectedProduct = newProduct;
         this.updateFromValues();
